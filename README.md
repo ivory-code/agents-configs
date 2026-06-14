@@ -9,9 +9,16 @@
 
 구조:
 - `.agent-core/`: 벤더 중립 공통 규칙/스킬
+- `.agent-core/blueprints/`: 신규 스킬/프로필 작성 템플릿
 - `.claude/`: Claude 전용 엔트리/설정
 - `.codex/`: Codex 전용 엔트리/설정
+- `docs/`: 범용 스킬셋 설계 문서
 - `scripts/`: 신규 프로젝트에 설정 배포/동기화 도구
+
+핵심 문서:
+- `docs/UNIVERSAL_SKILLSET_BLUEPRINT.md`: 범용 스킬셋 아키텍처
+- `.agent-core/blueprints/skill-template.md`: 신규 스킬 작성 보일러플레이트
+- `.agent-core/blueprints/profile-template.md`: 신규 레포 프로필 작성 보일러플레이트
 
 빠른 시작:
 ```bash

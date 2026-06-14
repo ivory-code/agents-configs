@@ -7,6 +7,7 @@
 
 ```text
 .agent-core/
+├── blueprints/
 ├── profiles/
 └── skills/
 ```
@@ -14,6 +15,9 @@
 ## Skills
 
 - `project-profile-selector.md`
+- `skill-system-architect.md`
+- `executive-operating-harness.md`
+- `engineering-excellence-harness.md`
 - `code-style.md`
 - `design-system.md`
 - `testing.md`
@@ -24,6 +28,11 @@
 - `pressure-scenarios.md`
 - `pr-checklist.md`
 - `past-mistakes.md`
+
+## Blueprints
+
+- `skill-template.md`
+- `profile-template.md`
 
 ## Profiles
 
