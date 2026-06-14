@@ -1,6 +1,6 @@
 # Repo Profile Boilerplate
 
-Use this template for `.agent-core/profiles/<repo-name>.md`.
+Use this template when creating a target-repo profile, for example `.agent-profile.md` or `docs/AGENT_PROFILE.md` inside the target repository.
 
 ````md
 # Profile: <repo-name>

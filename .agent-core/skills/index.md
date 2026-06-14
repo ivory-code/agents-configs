@@ -1,46 +1,38 @@
-# Client Skills Index (Generic)
+# Agent Skills Index
 
-## Step 1: Profile (always)
+Use the smallest relevant skill set. Do not load every skill by default.
 
-- `project-profile-selector.md`
+## Step 1: Repo Context Always First
+
+| Situation | Required Skill |
+|---|---|
+| Any new repo/session or before code edits | `repo-convention-intelligence` |
 
 ## Step 2: Operating Harness
 
-| Situation | Required Skills |
+| Situation | Required Skill |
 |---|---|
 | Skill system design / cleanup | `skill-system-architect` |
 | Product strategy / roadmap / positioning / monetization | `executive-operating-harness` |
 | Non-trivial code change / refactor / release risk | `engineering-excellence-harness` |
 
-## Step 3: Task-Based Required Skills
+## Step 3: Task Skills
 
 | Task Type | Required Skills |
 |---|---|
-| UI / Layout / Component | `code-style`, `design-system` |
-| API / Query / Mutation | `code-style`, `testing` |
-| React Architecture Refactor | `react-best-practice`, `code-style`, `testing` |
-| Next.js Composition / Route Structure | `vercel-composite-patterns`, `code-style` |
-| Legacy file touch | `convention-adoption`, `code-style` |
-| Hotfix / urgent patch | `pressure-scenarios`, `pr-checklist` |
+| Code implementation/refactor | `code-style` |
+| UI / layout / component / theme | `design-system`, `code-style` |
+| Tests / risky logic / PR validation | `testing` |
 | PR finalize | `pr-checklist` |
 
-## Optional Skills
+## Token Budget Rules
 
-- `executive-operating-harness.md` (사업/제품/마케팅/디자인/기술 의사결정)
-- `engineering-excellence-harness.md` (코드 인프라 품질 게이트)
-- `past-mistakes.md` (회귀 패턴 점검)
-- `superpowers-operating-model.md` (워크플로우 운영 기준)
+1. Run or approximate repo inspection before reading broad docs.
+2. Read only the skill that matches the task.
+3. Prefer scripts and summaries over repeated manual file scanning.
+4. Reuse context gathered earlier in the same task.
+5. Stop gathering context once commands, architecture, conventions, and risks are clear.
 
-## Profile Files
+## Completion Rule
 
-- `../profiles/next-pages-rq3-yarn.md`
-- `../profiles/next-pages-rq3-yarn-semicolon.md`
-- `../profiles/next-monorepo-rq5-pnpm.md`
-- `../profiles/nuxt2-context-only.md`
-
-## Operating Rule
-
-1. profile 선택 없이 코드 작성 금지
-2. 전략/제품/기술 판단이 섞인 요청은 operating harness 먼저 적용
-3. required skill 누락 금지
-4. 완료 전 profile 기준 검증 명령 실행
+Finish with validation evidence or a clear reason validation could not run.

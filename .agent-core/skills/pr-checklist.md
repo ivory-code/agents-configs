@@ -1,55 +1,45 @@
 # PR Checklist
 
-PR 직전 최종 검증 스킬.
+## Purpose
 
-## 1) Profile Check
+Finalize changes with concise validation evidence, risk notes, and no unnecessary context or files.
 
-- 적용 profile 재확인
-- package manager 일치
-- alias/query 버전 혼용 없음
+## Trigger
 
-## 2) Convention Check
+Use this skill before committing, opening a PR, summarizing a branch, or handing work to another agent.
 
-- 신규/수정 라인 `any` 없음
-- query key factory 적용
-- invalidation 범위 최소화
-- 디자인 시스템/토큰 우선 사용
-- 스타일 분리 규칙 준수
+## Required Context
 
-## 3) Validation Check
+Use the repo inspection summary, git diff, and validation outputs. Do not re-read unrelated files.
 
-- Small: `lint`
-- Normal: `lint + typecheck`
-- High-risk: `lint + typecheck + build`
-- PR final: `lint + typecheck + build`
+## Checklist
 
-## 4) Diff Quality Check
+1. Scope is clear and limited to the requested work.
+2. No unrelated files or generated noise are included.
+3. Local conventions were followed.
+4. Existing reusable components/services/config were preferred.
+5. Validation commands from repo context were run or explicitly skipped with reason.
+6. Risky areas are called out: auth, storage, payment, privacy, release, migration.
+7. Follow-up work is separated from this PR.
 
-- 불필요 파일 생성 없음
-- dead code/console debug 정리
-- 파일 이동/이름 변경 이유 명확
-
-## 5) Risk Note
-
-- 알려진 리스크 기록
-- 후속 작업 티켓 연결
-- SHOULD 예외 시 `rule/reason/expire` 명시
-
-## 6) Required Report Format
+## Suggested Report
 
 ```text
-[Profile]
-- repo:
-- profile:
+[Summary]
+-
 
 [Validation]
 - lint:
 - typecheck:
-- build/test:
+- test/build/manual:
 
 [Risk]
-- none | <risk summary>
+- none | <risk>
 
-[Exception]
-- none | <rule/reason/expire>
+[Follow-up]
+- none | <next item>
 ```
+
+## Escalation
+
+Pause before staging, committing, pushing, deleting branches, or changing release/version metadata unless explicitly requested.

@@ -21,7 +21,7 @@ Inspect before editing:
 - `.agent-core/skills/index.md`
 - existing related skills
 - `.codex/AGENTS.md` and `.claude/CLAUDE.md`
-- target repo profile if the skill is project-specific
+- repo inspection output or generated profile when project-specific
 - `docs/UNIVERSAL_SKILLSET_BLUEPRINT.md` if present
 
 ## Operating Loop
@@ -37,7 +37,7 @@ Inspect before editing:
 ## Placement Rules
 
 - Core reusable rule: `.agent-core/skills/<name>.md`
-- Repo-specific convention: `.agent-core/profiles/<repo>.md` or target repo local docs
+- Repo-specific convention: target repo profile/doc generated from `.agent-core/blueprints/profile-template.md`
 - Large reference table: `.agent-core/references/<topic>.md` when introduced
 - Formal Codex skill: `<skill-name>/SKILL.md` only after the markdown skill is stable
 - Agent-specific wording: `.codex/AGENTS.md` or `.claude/CLAUDE.md`
@@ -56,7 +56,7 @@ Inspect before editing:
 - Skill has purpose, trigger, required context, operating loop, decision rules, validation gate, escalation.
 - Skill is referenced in `skills/index.md` if it should be discoverable.
 - Agent entry files mention it only if it belongs in the default load/optional list.
-- No project-specific secrets, names, branch names, or volatile release numbers in core skills.
+- No project-specific secrets, branch names, or volatile release numbers in core skills.
 
 ## Output Format
 
