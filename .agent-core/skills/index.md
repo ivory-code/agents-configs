@@ -13,6 +13,7 @@ Use the smallest relevant skill set. Do not load every skill by default.
 | Situation | Required Skill |
 |---|---|
 | Skill system design / cleanup | `skill-system-architect` |
+| Capturing tacit knowledge, repeated context, or durable agent memory | `intent-capture` |
 | Product strategy / roadmap / positioning / monetization | `executive-operating-harness` |
 | Non-trivial code change / refactor / release risk | `engineering-excellence-harness` |
 
@@ -23,6 +24,7 @@ Use the smallest relevant skill set. Do not load every skill by default.
 | Code implementation/refactor | `code-style` |
 | UI / layout / component / theme | `design-system`, `code-style` |
 | Tests / risky logic / PR validation | `testing` |
+| AI-generated output review / QA evidence / eval design | `verification-layer` |
 | PR finalize | `pr-checklist` |
 
 ## Token Budget Rules

@@ -27,7 +27,9 @@ A portable skillset should help an agent understand the current repo quickly, ch
     repo-convention-intelligence.md
     engineering-excellence-harness.md
     executive-operating-harness.md
+    intent-capture.md
     skill-system-architect.md
+    verification-layer.md
     code-style.md
     design-system.md
     testing.md
@@ -114,13 +116,27 @@ A skill should not include:
 - long examples that belong in references
 - inspirational text without operational effect
 
-## 8. Profile Strategy
+## 8. Intent And Verification
+
+AI-assisted work creates two recurring costs:
+
+- intent debt: useful context, constraints, and judgment stay in a person's head or one chat session
+- verification tax: generated output looks plausible but still needs checks before it can be trusted
+
+The portable skillset should therefore include two explicit behaviors:
+
+- `intent-capture`: ask focused questions, extract tacit knowledge, and store durable lessons in the right artifact
+- `verification-layer`: define binary checks, quantitative metrics, and qualitative rubrics before trusting generated output
+
+These skills should be loaded only when triggered. They are not a reason to turn every task into a long planning ritual.
+
+## 9. Profile Strategy
 
 Profiles are optional. Create one only when a repo will be revisited often or has non-obvious conventions.
 
 Use `.agent-core/blueprints/profile-template.md` as the template. Store the generated profile in the target repo or a project-specific config area, not in the portable core unless it is truly generic.
 
-## 9. Migration Plan
+## 10. Migration Plan
 
 1. Remove old framework-specific profiles and overloaded skills.
 2. Make `repo-convention-intelligence` the first step for every repo.
@@ -128,7 +144,7 @@ Use `.agent-core/blueprints/profile-template.md` as the template. Store the gene
 4. Add automation scripts for repeated inspection.
 5. Split future skills only when a repeated task proves stable.
 
-## 10. Success Criteria
+## 11. Success Criteria
 
 A fresh agent should be able to answer quickly:
 

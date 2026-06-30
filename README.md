@@ -41,7 +41,9 @@ Core skills:
 - `repo-convention-intelligence`: inspect stack, commands, tests, and local conventions before acting.
 - `engineering-excellence-harness`: guide non-trivial implementation, refactor, and release-risk work.
 - `executive-operating-harness`: guide roadmap, positioning, product, and strategy decisions.
+- `intent-capture`: turn repeated explanations and tacit judgment into durable docs, profiles, or skills.
 - `skill-system-architect`: design and maintain reusable agent skills without bloat.
+- `verification-layer`: design checks, metrics, rubrics, and review loops for generated output.
 - `code-style`, `design-system`, `testing`, `pr-checklist`: task-specific operating skills.
 
 ## Quick Start
@@ -50,6 +52,12 @@ Copy both Codex and Claude entrypoints into a target project:
 
 ```bash
 ./scripts/bootstrap.sh all /path/to/project
+```
+
+Or keep this repo as the single source of truth with symlinks:
+
+```bash
+./scripts/bootstrap.sh --link all /path/to/project
 ```
 
 Or copy only one tool entrypoint:
@@ -68,6 +76,14 @@ cd /path/to/project
 
 The bootstrap script copies `.agent-core/` plus the selected tool-specific entrypoint. It may overwrite matching files in the target path, so review local changes before committing.
 
+Check an installed project:
+
+```bash
+./scripts/doctor.sh /path/to/project
+```
+
+See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-vs-symlink strategy.
+
 ## Recommended Agent Flow
 
 1. Run `.agent-core/scripts/inspect-repo.sh .`.
@@ -80,6 +96,8 @@ The bootstrap script copies `.agent-core/` plus the selected tool-specific entry
 ## Main Documents
 
 - [`docs/UNIVERSAL_SKILLSET_BLUEPRINT.md`](docs/UNIVERSAL_SKILLSET_BLUEPRINT.md)
+- [`docs/AGENT_OPERATING_MODEL.md`](docs/AGENT_OPERATING_MODEL.md)
+- [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md)
 - [`.agent-core/README.md`](.agent-core/README.md)
 - [`.agent-core/skills/index.md`](.agent-core/skills/index.md)
 - [`.agent-core/blueprints/skill-template.md`](.agent-core/blueprints/skill-template.md)
@@ -89,9 +107,12 @@ The bootstrap script copies `.agent-core/` plus the selected tool-specific entry
 
 - Context first: inspect the current repo before applying generic advice.
 - Automation before repetition: use scripts for repeatable convention discovery.
+- Shared source, thin adapters: keep reusable rules in `.agent-core` and point each agent entrypoint at it.
 - Progressive disclosure: load only the skill needed for the task.
 - Local conventions win: target repo rules override portable defaults unless unsafe.
 - Evidence over intuition: finish with files, commands, logs, tests, or a clear blocker.
+- Intent capture: turn repeated explanations and tacit judgment into durable docs or skills.
+- Verification layer: do not trust generated output without checks, metrics, or rubrics.
 - Portable core: keep project secrets, branch names, and volatile release details out of reusable skills.
 
 ## Non-Goals
