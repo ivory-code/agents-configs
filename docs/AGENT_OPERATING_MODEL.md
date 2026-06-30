@@ -61,28 +61,28 @@ Before trusting important generated output, define:
 
 For important work, use independent review context. The same agent session that made the work is biased toward defending it.
 
-## 5. Relationship To CodeWard
+## 5. Reusable Project Layer
 
-`agents-configs` and CodeWard are two layers of the same workflow.
+`agents-configs` is meant to be reusable across new and existing repositories.
 
-`agents-configs` answers:
+It answers:
 
 - How should an agent enter a repo?
 - Which local conventions should it respect?
 - Which skill should it load?
 - How should it capture intent, taste, and validation evidence?
 
-CodeWard answers:
+It should stay portable:
 
-- What changed in this branch?
-- Which verification work is missing?
-- Which E2E, fixture, selector, or validation draft should exist?
-- Is the output runnable, near-runnable, or review-only?
+- keep product-specific context in the target repo
+- keep reusable agent behavior in `.agent-core`
+- keep tool-specific entrypoints thin
+- use copy mode when the target repo should own its config
+- use symlink mode when one local source of truth should update many repos
 
-Together they reduce repeated human effort:
+This reduces repeated human effort:
 
 - less repeated explanation to agents
-- less blank-page test planning
 - less unreviewed generated output
 - more reusable quality judgment
 - more durable repo-local knowledge

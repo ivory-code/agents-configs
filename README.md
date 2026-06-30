@@ -12,16 +12,7 @@ AI coding agents waste a surprising amount of time rediscovering the same contex
 
 `agents-configs` keeps the reusable parts in a vendor-neutral `.agent-core/` directory and uses thin tool-specific entrypoints for Codex and Claude.
 
-The goal is not to create a giant prompt. The goal is to keep agent behavior small, portable, inspectable, and easy to copy into real projects.
-
-## How It Relates to CodeWard
-
-This repo and CodeWard are complementary:
-
-- `agents-configs` defines reusable agent operating rules and skills.
-- CodeWard analyzes a repo or branch and turns that context into review, validation, and E2E planning evidence.
-
-In practice, `agents-configs` helps agents behave well inside a repo, while CodeWard helps decide what verification work a PR needs.
+The goal is not to create a giant prompt. The goal is to keep agent behavior small, portable, inspectable, and easy to copy into new or existing repositories.
 
 ## What Is Included
 
@@ -49,7 +40,7 @@ Core skills:
 
 ## Quick Start
 
-Copy both Codex and Claude entrypoints into a target project:
+Copy both Codex and Claude entrypoints into a target repo:
 
 ```bash
 ./scripts/bootstrap.sh all /path/to/project
@@ -122,6 +113,7 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 - This is not a package manager, framework, or runtime dependency.
 - This is not a replacement for project-specific `AGENTS.md`, `CLAUDE.md`, or security policy.
 - This is not a giant all-purpose prompt that should be loaded on every turn.
+- This is not tied to any single open-source project or product workflow.
 - This repo should not store private project details, credentials, or one-off release state.
 
 ## Status
