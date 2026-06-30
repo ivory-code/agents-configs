@@ -42,6 +42,7 @@ Core skills:
 - `engineering-excellence-harness`: guide non-trivial implementation, refactor, and release-risk work.
 - `executive-operating-harness`: guide roadmap, positioning, product, and strategy decisions.
 - `intent-capture`: turn repeated explanations and tacit judgment into durable docs, profiles, or skills.
+- `taste-calibration`: turn implicit quality judgment into reusable rubrics and failure signs.
 - `skill-system-architect`: design and maintain reusable agent skills without bloat.
 - `verification-layer`: design checks, metrics, rubrics, and review loops for generated output.
 - `code-style`, `design-system`, `testing`, `pr-checklist`: task-specific operating skills.
@@ -112,6 +113,7 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 - Local conventions win: target repo rules override portable defaults unless unsafe.
 - Evidence over intuition: finish with files, commands, logs, tests, or a clear blocker.
 - Intent capture: turn repeated explanations and tacit judgment into durable docs or skills.
+- Taste calibration: convert "what good looks like" into compact rubrics future agents can reuse.
 - Verification layer: do not trust generated output without checks, metrics, or rubrics.
 - Portable core: keep project secrets, branch names, and volatile release details out of reusable skills.
 

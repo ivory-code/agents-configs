@@ -28,6 +28,7 @@ A portable skillset should help an agent understand the current repo quickly, ch
     engineering-excellence-harness.md
     executive-operating-harness.md
     intent-capture.md
+    taste-calibration.md
     skill-system-architect.md
     verification-layer.md
     code-style.md
@@ -122,10 +123,12 @@ AI-assisted work creates two recurring costs:
 
 - intent debt: useful context, constraints, and judgment stay in a person's head or one chat session
 - verification tax: generated output looks plausible but still needs checks before it can be trusted
+- taste drift: agents repeatedly ask the user to re-explain what good, polished, or trustworthy means
 
-The portable skillset should therefore include two explicit behaviors:
+The portable skillset should therefore include three explicit behaviors:
 
 - `intent-capture`: ask focused questions, extract tacit knowledge, and store durable lessons in the right artifact
+- `taste-calibration`: convert implicit quality judgment into compact rubrics, examples, and failure signs
 - `verification-layer`: define binary checks, quantitative metrics, and qualitative rubrics before trusting generated output
 
 These skills should be loaded only when triggered. They are not a reason to turn every task into a long planning ritual.

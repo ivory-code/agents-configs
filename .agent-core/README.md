@@ -17,6 +17,7 @@ Vendor-neutral agent skills, scripts, and blueprints for reuse across repositori
 - `engineering-excellence-harness.md`
 - `executive-operating-harness.md`
 - `intent-capture.md`
+- `taste-calibration.md`
 - `skill-system-architect.md`
 - `verification-layer.md`
 - `code-style.md`

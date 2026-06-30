@@ -35,7 +35,21 @@ When a conversation reveals repeated context, constraints, or taste, capture it:
 
 The goal is to reduce repeated explanation in future sessions.
 
-## 3. Verification Layer
+## 3. Taste Calibration
+
+AI can produce many plausible options. The human bottleneck often becomes deciding which option is actually good.
+
+When a user reveals taste, convert it into reusable criteria:
+
+- what good looks like
+- what failure looks like
+- which signals are explicit user input
+- which signals are inferred and need confirmation
+- how the criteria can be checked next time
+
+Taste should not stay as a vague preference in one chat. Durable taste becomes a rubric that future agents can apply before asking the user to re-explain the same judgment.
+
+## 4. Verification Layer
 
 AI-generated output can look correct while creating hidden integration, domain, or intent debt.
 
@@ -47,7 +61,7 @@ Before trusting important generated output, define:
 
 For important work, use independent review context. The same agent session that made the work is biased toward defending it.
 
-## 4. Relationship To CodeWard
+## 5. Relationship To CodeWard
 
 `agents-configs` and CodeWard are two layers of the same workflow.
 
@@ -56,7 +70,7 @@ For important work, use independent review context. The same agent session that 
 - How should an agent enter a repo?
 - Which local conventions should it respect?
 - Which skill should it load?
-- How should it capture intent and validation evidence?
+- How should it capture intent, taste, and validation evidence?
 
 CodeWard answers:
 
@@ -70,9 +84,10 @@ Together they reduce repeated human effort:
 - less repeated explanation to agents
 - less blank-page test planning
 - less unreviewed generated output
+- more reusable quality judgment
 - more durable repo-local knowledge
 
-## 5. Practical Rule
+## 6. Practical Rule
 
 Do not make agents smarter by loading everything.
 
@@ -80,5 +95,6 @@ Make agents more useful by giving them:
 
 1. the current repo context
 2. the smallest relevant skill
-3. a clear validation layer
-4. a place to store durable lessons
+3. a calibrated quality bar
+4. a clear validation layer
+5. a place to store durable lessons
