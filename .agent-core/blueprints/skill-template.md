@@ -31,12 +31,13 @@ Inspect these before acting:
 
 ## Operating Loop
 
-1. Clarify the objective from existing context.
-2. Inspect the smallest sufficient surface.
-3. Decide the approach and name the tradeoff.
-4. Implement or produce the requested artifact.
-5. Validate using the gate below.
-6. Report result, risk, and next step.
+1. Clarify the objective from existing context and evidence.
+2. Separate observed facts, inferred intent, and human-reviewed policy.
+3. Inspect the smallest sufficient surface.
+4. Decide the approach and name the tradeoff.
+5. Implement or produce the requested artifact.
+6. Validate using the gate below; distinguish generated checks from executed evidence.
+7. Report result, confidence, risk, and next step.
 
 ## Decision Rules
 
@@ -54,12 +55,17 @@ Inspect these before acting:
 ## Output Format
 
 ```text
-[What]
+[Intent]
 - objective:
+- evidence:
+- confidence:
+
+[What]
 - change:
 
 [Validation]
-- lint/typecheck/test/build:
+- generated:
+- executed lint/typecheck/test/build:
 
 [Risk]
 - none | <risk>

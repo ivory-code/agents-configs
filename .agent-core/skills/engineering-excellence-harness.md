@@ -26,12 +26,13 @@ Inspect before editing:
 
 ## Operating Loop
 
-1. Identify the change type and risk level.
-2. Map the impacted boundaries: screen, feature, service, shared UI, config.
-3. Reuse existing patterns before creating new ones.
-4. Keep source of truth minimal; derive everything else.
-5. Add or update tests/checks proportional to risk.
-6. Run validation and report residual risk.
+1. Identify the intended behavior from the request, commits, and diff; mark assumptions.
+2. Identify the change type and risk level.
+3. Map the impacted behavior and boundaries: screen, feature, service, shared UI, config.
+4. Reuse existing patterns before creating new ones.
+5. Keep source of truth minimal; derive everything else.
+6. Add or update tests/checks proportional to risk and behavior lifecycle.
+7. Run validation and report residual risk.
 
 ## Quality Pillars
 
@@ -43,7 +44,7 @@ Inspect before editing:
 | Type safety | no new `any`; validate unknown boundaries |
 | State | store minimal source of truth; derive during render where possible |
 | Performance | avoid unstable refs in lists, expensive render work, unnecessary subscriptions |
-| Testing | protect high-risk user flows and pure domain utilities |
+| Testing | derive verification scenarios from changed behavior before selecting a runner |
 | Privacy | avoid leaking personal content to logs, analytics, or share artifacts |
 | Release | verify environment, version source of truth, and rollback risk |
 
@@ -58,6 +59,7 @@ Inspect before editing:
 ## Decision Rules
 
 - MUST inspect existing conventions before introducing new structure.
+- MUST state which behavior is intended to change and which evidence supports that interpretation.
 - MUST keep unrelated refactors out of feature changes unless explicitly scoped.
 - MUST document exceptions with reason and follow-up.
 - SHOULD reduce file size and responsibility when touching large files.

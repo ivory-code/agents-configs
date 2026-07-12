@@ -15,23 +15,34 @@ Use the repo inspection summary, git diff, and validation outputs. Do not re-rea
 ## Checklist
 
 1. Scope is clear and limited to the requested work.
-2. No unrelated files or generated noise are included.
-3. Local conventions were followed.
-4. Existing reusable components/services/config were preferred.
-5. Validation commands from repo context were run or explicitly skipped with reason.
-6. Risky areas are called out: auth, storage, payment, privacy, release, migration.
-7. Follow-up work is separated from this PR.
+2. The intended behavior change is stated with user, commit, diff, test, or reviewed-baseline evidence.
+3. Relevant primary, failure, boundary, and state-transition scenarios were considered.
+4. Low-confidence or conflicting intent is marked for human review.
+5. No unrelated files or generated noise are included.
+6. Local conventions were followed.
+7. Existing reusable components/services/config were preferred.
+8. Validation commands from repo context were run or explicitly skipped with reason.
+9. Generated drafts are not reported as passing evidence unless they were executed.
+10. Risky areas are called out: auth, storage, payment, privacy, release, migration.
+11. Accepted corrections that should help future changes were captured in durable repo memory.
+12. Follow-up work is separated from this PR.
 
 ## Suggested Report
 
 ```text
 [Summary]
--
+- intended behavior:
+- evidence:
+- confidence:
+
+[Scenario Coverage]
+- primary/failure/boundary/state transition:
 
 [Validation]
 - lint:
 - typecheck:
-- test/build/manual:
+- generated:
+- executed test/build/manual:
 
 [Risk]
 - none | <risk>

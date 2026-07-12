@@ -18,11 +18,13 @@ Run first when available:
 
 If the script is unavailable, inspect only the smallest equivalent surface:
 
+- current branch, default branch, commits, and changed files
 - `package.json`
 - lockfile
 - `tsconfig.*`
 - lint/format config
 - root agent docs: `AGENTS.md`, `CLAUDE.md`
+- existing repo profiles, verification baselines, runbooks, or test strategy docs
 - nearest files around the target change
 
 ## Context Budget Rules
@@ -40,6 +42,8 @@ Capture only what affects the task:
 
 ```text
 [Repo Context]
+- current/default branch:
+- branch intent evidence:
 - stack:
 - package manager:
 - commands:
@@ -48,6 +52,8 @@ Capture only what affects the task:
 - styling/design-system:
 - state/data:
 - tests:
+- instruction surfaces:
+- verification memory:
 - high-risk areas:
 ```
 
@@ -55,8 +61,10 @@ Capture only what affects the task:
 
 - MUST follow observed repo conventions over generic preference.
 - MUST avoid inventing new architecture if the existing pattern is adequate.
+- MUST distinguish current-branch evidence from durable policy on the default branch.
 - MUST load task-specific skills only after identifying the task type.
 - SHOULD create or update a repo profile only when the same repo will be reused repeatedly.
+- SHOULD treat reviewed baselines and runbooks as stronger evidence than filename heuristics.
 - NEVER spend context on framework rules that do not apply to the current repo.
 
 ## Validation Gate
@@ -64,6 +72,7 @@ Capture only what affects the task:
 Before editing, the agent can state:
 
 - package manager and validation commands
+- current change evidence and the shared default-branch baseline
 - target architecture boundary
 - reusable components/services/config already checked
 - task-specific skill selected or intentionally skipped

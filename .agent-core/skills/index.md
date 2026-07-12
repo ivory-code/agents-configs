@@ -24,7 +24,7 @@ Use the smallest relevant skill set. Do not load every skill by default.
 |---|---|
 | Code implementation/refactor | `code-style` |
 | UI / layout / component / theme | `design-system`, `code-style` |
-| Tests / risky logic / PR validation | `testing` |
+| Change intent / tests / risky logic / PR validation | `testing` |
 | AI-generated output review / QA evidence / eval design | `verification-layer`, optionally `taste-calibration` |
 | PR finalize | `pr-checklist` |
 
@@ -38,4 +38,4 @@ Use the smallest relevant skill set. Do not load every skill by default.
 
 ## Completion Rule
 
-Finish with validation evidence or a clear reason validation could not run.
+Finish with observed intent evidence, generated-versus-executed validation evidence, or a clear reason validation could not run. Promote only human-reviewed corrections into durable repo memory.

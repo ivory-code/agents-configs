@@ -35,6 +35,20 @@ Use this template when creating a target-repo profile, for example `.agent-profi
 - API schema:
 - release metadata:
 
+## Change Context
+
+- default branch/ref:
+- commit convention:
+- branch comparison rule:
+- instruction surfaces:
+
+## Verification Memory
+
+- shared baseline path:
+- critical behavior source:
+- fixture/mock source:
+- accepted correction log:
+
 ## Architecture Rules
 
 - screen/page layer:

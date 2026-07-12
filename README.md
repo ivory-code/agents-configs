@@ -6,6 +6,8 @@ This repository is a personal public toolkit for making AI coding sessions start
 
 > Inspect the target repo first, load only the relevant skill, follow local conventions, and finish with validation evidence.
 
+For change-bearing work, this expands to: identify the branch intent from evidence, make uncertainty explicit, derive verification scenarios before choosing tools, and promote only reviewed corrections into repo memory.
+
 ## Why This Exists
 
 AI coding agents waste a surprising amount of time rediscovering the same context: package manager, scripts, architecture boundaries, test commands, branch rules, and local style. They also drift when every tool has its own separate instruction file.
@@ -36,7 +38,8 @@ Core skills:
 - `taste-calibration`: turn implicit quality judgment into reusable rubrics and failure signs.
 - `skill-system-architect`: design and maintain reusable agent skills without bloat.
 - `verification-layer`: design checks, metrics, rubrics, and review loops for generated output.
-- `code-style`, `design-system`, `testing`, `pr-checklist`: task-specific operating skills.
+- `testing`: turn branch evidence into behavior lifecycle, scenario axes, and risk-proportional validation.
+- `code-style`, `design-system`, `pr-checklist`: task-specific operating skills.
 
 ## Quick Start
 
@@ -80,10 +83,12 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 
 1. Run `.agent-core/scripts/inspect-repo.sh .`.
 2. Read `.agent-core/skills/repo-convention-intelligence.md`.
-3. Load only the task-specific skill from `.agent-core/skills/index.md`.
-4. Make the smallest useful change that follows the target repo.
-5. Validate with commands discovered from the target repo.
-6. Report what changed and what evidence proves it.
+3. Separate the default-branch baseline from current branch evidence.
+4. State the intended behavior and confidence before selecting tools.
+5. Load only the task-specific skill from `.agent-core/skills/index.md`.
+6. Make the smallest useful change that follows the target repo.
+7. Validate applicable primary, failure, boundary, and state-transition risks.
+8. Report generated versus executed evidence and promote only reviewed corrections.
 
 ## Main Documents
 
@@ -94,10 +99,13 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 - [`.agent-core/skills/index.md`](.agent-core/skills/index.md)
 - [`.agent-core/blueprints/skill-template.md`](.agent-core/blueprints/skill-template.md)
 - [`.agent-core/blueprints/profile-template.md`](.agent-core/blueprints/profile-template.md)
+- [`.agent-core/blueprints/verification-baseline-template.md`](.agent-core/blueprints/verification-baseline-template.md)
 
 ## Design Principles
 
 - Context first: inspect the current repo before applying generic advice.
+- Intent before tooling: identify changed behavior before selecting a runner, framework, or test layer.
+- Explicit uncertainty: separate observed evidence, inference, and human-reviewed policy.
 - Automation before repetition: use scripts for repeatable convention discovery.
 - Shared source, thin adapters: keep reusable rules in `.agent-core` and point each agent entrypoint at it.
 - Progressive disclosure: load only the skill needed for the task.
@@ -106,6 +114,7 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 - Intent capture: turn repeated explanations and tacit judgment into durable docs or skills.
 - Taste calibration: convert "what good looks like" into compact rubrics future agents can reuse.
 - Verification layer: do not trust generated output without checks, metrics, or rubrics.
+- Correction as memory: promote accepted lessons, not raw generated output, into the default-branch baseline.
 - Portable core: keep project secrets, branch names, and volatile release details out of reusable skills.
 
 ## Non-Goals

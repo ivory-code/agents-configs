@@ -33,11 +33,15 @@ Vendor-neutral agent skills, scripts, and blueprints for reuse across repositori
 
 - `blueprints/skill-template.md`
 - `blueprints/profile-template.md`
+- `blueprints/verification-baseline-template.md`
 
 ## Operating Rules
 
 1. Start from repo context, not generic preference.
-2. Keep skills short and load task-specific details only when needed.
-3. Put volatile repo details in generated repo profiles, not core skills.
-4. Prefer automation scripts for repeated inspection.
-5. Remove or split skills that become motivational, duplicated, or framework-specific.
+2. Separate default-branch policy from current branch evidence.
+3. Derive change intent and verification scenarios before selecting tools.
+4. Keep skills short and load task-specific details only when needed.
+5. Put volatile repo details in generated repo profiles, not core skills.
+6. Promote only human-reviewed corrections into shared verification memory.
+7. Prefer automation scripts for repeated inspection.
+8. Remove or split skills that become motivational, duplicated, or framework-specific.

@@ -5,10 +5,16 @@ This repository is built around one idea: agent productivity depends less on a b
 ## The Loop
 
 ```text
-repo context -> relevant skill -> small action -> verification evidence -> durable lesson
+default-branch baseline + branch evidence
+  -> change intent + confidence
+  -> behavior lifecycle + scenario axes
+  -> relevant skill + small action
+  -> generated and executed evidence
+  -> human-reviewed correction
+  -> durable repo memory
 ```
 
-The loop should be cheap enough to repeat in every repo and explicit enough that another agent can continue later.
+The loop should be cheap enough to repeat in every repo and explicit enough that another agent can continue later. Tool or runner choice comes after the changed behavior and verification need are clear.
 
 ## 1. Shared Source Of Truth
 
@@ -32,6 +38,8 @@ When a conversation reveals repeated context, constraints, or taste, capture it:
 - reusable agent behavior -> `.agent-core/skills`
 - long reference -> `.agent-core/references`
 - temporary handoff -> PR body, task note, or decision log
+
+Keep shared behavior and verification baselines on the default branch. Treat branch-local observations as proposals until a human accepts them as durable corrections.
 
 The goal is to reduce repeated explanation in future sessions.
 
@@ -59,9 +67,29 @@ Before trusting important generated output, define:
 - quantitative metrics: latency, cost, coverage, error rate, size
 - qualitative rubrics: architecture fit, UX clarity, domain correctness, maintainability
 
+For changed behavior, first map trigger, precondition, action, state change, side effect, and observable outcome. Then consider primary, failure, boundary, and state-transition scenarios. Do not select a test runner before the scenario is clear.
+
+Keep three evidence levels separate:
+
+- observed: present in user input, commits, diff, files, tests, or logs
+- inferred: connected by a rule or reasoned assumption
+- reviewed: accepted by a human or durable repo baseline
+
+A generated test is a proposal. It becomes validation evidence only after execution or explicit human verification.
+
 For important work, use independent review context. The same agent session that made the work is biased toward defending it.
 
-## 5. Reusable Project Layer
+## 5. Correction Lifecycle
+
+Repeated agent value comes from correction, not from storing every output.
+
+```text
+infer -> review -> accept or reject -> store durable correction -> reuse on the next change
+```
+
+Use [the verification baseline template](../.agent-core/blueprints/verification-baseline-template.md) when a repo has important flows, scenario policy, fixtures, or uncertainty that code structure cannot explain. Keep it small and human-reviewed.
+
+## 6. Reusable Project Layer
 
 `agents-configs` is meant to be reusable across new and existing repositories.
 
@@ -77,6 +105,7 @@ It should stay portable:
 - keep product-specific context in the target repo
 - keep reusable agent behavior in `.agent-core`
 - keep tool-specific entrypoints thin
+- keep reviewed behavior and QA memory in the target repo
 - use copy mode when the target repo should own its config
 - use symlink mode when one local source of truth should update many repos
 
@@ -87,14 +116,16 @@ This reduces repeated human effort:
 - more reusable quality judgment
 - more durable repo-local knowledge
 
-## 6. Practical Rule
+## 7. Practical Rule
 
 Do not make agents smarter by loading everything.
 
 Make agents more useful by giving them:
 
 1. the current repo context
-2. the smallest relevant skill
-3. a calibrated quality bar
-4. a clear validation layer
-5. a place to store durable lessons
+2. the default-branch baseline and current branch evidence
+3. an explicit change intent and confidence
+4. the smallest relevant skill
+5. a calibrated quality bar
+6. a clear validation layer
+7. a place to store reviewed, durable lessons
