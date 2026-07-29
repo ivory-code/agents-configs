@@ -10,7 +10,7 @@ For change-bearing work, this expands to: identify the branch intent from eviden
 
 ## Why This Exists
 
-AI coding agents waste a surprising amount of time rediscovering the same context: package manager, scripts, architecture boundaries, test commands, branch rules, and local style. They also drift when every tool has its own separate instruction file.
+AI coding agents waste a surprising amount of time rediscovering the same context: dependency and build tooling, scripts, architecture boundaries, validation commands, branch rules, and local style. They also drift when every tool has its own separate instruction file.
 
 `agents-configs` keeps the reusable parts in a vendor-neutral `.agent-core/` directory and uses thin tool-specific entrypoints for Codex and Claude.
 
@@ -71,7 +71,7 @@ cd /path/to/project
 .agent-core/scripts/inspect-repo.sh .
 ```
 
-The bootstrap script copies `.agent-core/`, `.agents/`, and the selected tool-specific entrypoint. It may overwrite matching files in the target path, so review local changes before committing.
+The bootstrap script installs `.agent-core/`, `.agents/`, and the selected tool-specific entrypoint: it copies by default and links with `--link`. It may replace or overwrite matching paths according to the selected options, so review local changes before committing.
 
 Check an installed project:
 
@@ -79,14 +79,16 @@ Check an installed project:
 ./scripts/doctor.sh /path/to/project all
 ```
 
-Use `codex` or `claude` instead of `all` after a single-tool install. Omit the mode for a non-strict, auto-detected check.
+Use `codex` or `claude` instead of `all` for a strict single-tool check. Omit the mode to require the common core and R2C discovery path while treating tool-specific directories as optional.
 
-Invoke the workflow automatically only for a non-trivial change that spans planning, implementation, integration, and verification. You may also invoke it explicitly and name an earlier exit point, such as a Risk Map or Contract, without authorizing implementation:
+Agents should select the workflow implicitly only for a non-trivial change that spans planning, implementation, integration, and verification. You may also invoke it explicitly and name an earlier exit point, such as a Risk Map or Contract, without authorizing implementation:
 
 ```text
 Codex:       $risk-to-confidence <request>
 Claude Code: /risk-to-confidence <request>
 ```
+
+Running R2C does not create planning files by default. It persists a Contract, Plan, or Evidence pack only when the user supplies a location or authorizes an existing repository convention. See [the R2C workflow guide](docs/RISK_TO_CONFIDENCE.md) for phase gates, execution levels, artifacts, and verdicts.
 
 See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-vs-symlink strategy.
 
@@ -105,6 +107,7 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 
 - [`docs/UNIVERSAL_SKILLSET_BLUEPRINT.md`](docs/UNIVERSAL_SKILLSET_BLUEPRINT.md)
 - [`docs/AGENT_OPERATING_MODEL.md`](docs/AGENT_OPERATING_MODEL.md)
+- [`docs/RISK_TO_CONFIDENCE.md`](docs/RISK_TO_CONFIDENCE.md)
 - [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md)
 - [`.agent-core/README.md`](.agent-core/README.md)
 - [`.agent-core/skills/index.md`](.agent-core/skills/index.md)

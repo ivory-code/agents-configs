@@ -32,7 +32,10 @@ A portable skillset should help an agent understand the current repo quickly, ch
     risk-to-confidence/
       SKILL.md
       references/
+        artifact-contracts.md
+        repository-adapter.md
       agents/
+        openai.yaml
     engineering-excellence-harness.md
     executive-operating-harness.md
     intent-capture.md
@@ -59,10 +62,14 @@ flowchart TD
     C --> C2[State change intent and confidence]
     C2 --> D{Task type}
     D -- Product / strategy --> E[Executive harness]
-    D -- End-to-end non-trivial delivery --> R[Risk-to-Confidence]
+    D -- End-to-end non-trivial delivery --> R1[Risk Map]
     D -- Isolated code / refactor / release risk --> F[Engineering harness]
     D -- Skill design --> G[Skill system architect]
-    R --> F
+    R1 --> R2[Executable Contract]
+    R2 --> R3[Dependency-Aware Build]
+    R3 --> R4[Progressive Integration]
+    R4 --> R5[Confidence Pack]
+    R5 --> L
     F --> H[Task skill: code/design/testing/PR]
     E --> I[Decision / plan]
     G --> J[Skill update]
@@ -73,6 +80,13 @@ flowchart TD
     K --> L[Concise report]
     L --> M[Promote reviewed correction]
 ```
+
+### Risk-to-Confidence Routing Boundary
+
+- Select R2C automatically only when a non-trivial request spans contract, implementation, integration, and evidence.
+- An explicit R2C request may stop after an earlier named gate without authorizing later phases.
+- Use an existing stage skill for isolated review, implementation, design, testing, QA, or commit work.
+- Keep artifacts in the conversation unless the user supplies a location or authorizes an existing repository convention.
 
 ## 4. Context Budget Policy
 
@@ -104,18 +118,23 @@ Use `engineering-excellence-harness` for non-trivial code work.
 
 | Pillar | Guardrail |
 |---|---|
-| Architecture | separate UI, state, domain, service, and config concerns |
-| Reuse | search existing components/services/hooks before adding new ones |
-| Type safety | avoid new `any`; validate unknown boundaries |
-| Design system | use existing components/tokens before custom UI |
-| Performance | avoid unnecessary render work and unstable list references |
+| Architecture | preserve existing boundaries and isolate responsibilities and interfaces |
+| Reuse | search existing modules, components, services, scripts, and configuration before adding new ones |
+| Type and schema safety | preserve declared contracts and validate unknown boundaries |
+| Design and presentation | follow existing conventions and reusable assets when the change has a presentation surface |
+| Performance | target observed hot paths and avoid unnecessary work |
 | Testing | derive lifecycle and scenario axes before selecting test tooling |
-| Privacy/security | avoid leaking user content to logs, analytics, exports |
+| Privacy/security | avoid leaking sensitive data through logs, telemetry, artifacts, or exports |
 | Release | verify source of truth, environment, and rollback risk |
 
 ## 7. Skill Standard
 
-A reusable skill must include:
+This repository supports two skill forms:
+
+- A flat operational skill at `.agent-core/skills/<name>.md` keeps a lightweight, vendor-neutral rule set.
+- A formally discoverable package at `.agent-core/skills/<name>/SKILL.md` has valid `name` and `description` frontmatter, procedural instructions, optional package-local `references/` and `agents/`, and thin discovery adapters.
+
+A flat operational skill should make these elements explicit:
 
 - purpose
 - trigger
@@ -124,6 +143,8 @@ A reusable skill must include:
 - decision rules
 - validation gate
 - escalation criteria
+
+For a formal package, the description owns discovery and trigger boundaries; the body must still make operating steps, transition or completion criteria, and fallback behavior clear. Keep package-only references under the package directory. Use `.agent-core/references` only for material shared by multiple skills.
 
 A skill should not include:
 
@@ -182,12 +203,12 @@ Use `.agent-core/blueprints/profile-template.md` as the template. Store the gene
 
 A fresh agent should be able to answer quickly:
 
-- What stack and package manager does this repo use?
+- What stack and dependency or build system does this repo use?
 - Which validation commands apply?
 - What behavior is this branch intended to change, and what evidence supports that interpretation?
 - Which scenario axes apply, and which remain uncertain?
 - What local conventions should be followed?
-- Which existing components/services can be reused?
+- Which existing modules, services, assets, or configuration can be reused?
 - Which skill is relevant to this request?
 - What validation evidence proves completion?
 - Which evidence was generated, executed, or explicitly reviewed?

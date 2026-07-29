@@ -6,7 +6,7 @@ Understand a repository's actual conventions with minimal token cost before edit
 
 ## Trigger
 
-Use this skill at the start of any new repo session, before code changes, and whenever the agent is unsure about stack, package manager, validation commands, architecture, styling, tests, or local conventions.
+Use this skill at the start of any new repo session, before code changes, and whenever the agent is unsure about stack, dependency or build system, validation commands, architecture, presentation, tests, or local conventions.
 
 ## Required Context
 
@@ -19,11 +19,11 @@ Run first when available:
 If the script is unavailable, inspect only the smallest equivalent surface:
 
 - current branch, default branch, commits, and changed files
-- `package.json`
-- lockfile
-- `tsconfig.*`
-- lint/format config
-- root agent docs: `AGENTS.md`, `CLAUDE.md`
+- build, package, workspace, or dependency manifests and lockfiles
+- language, compiler, runtime, and schema configuration
+- formatting, linting, and static-analysis configuration
+- declared setup, build, test, format, and static-analysis commands from the applicable manifest or task runner
+- applicable instruction files and root documentation
 - existing repo profiles, verification baselines, runbooks, or test strategy docs
 - nearest files around the target change
 
@@ -45,12 +45,11 @@ Capture only what affects the task:
 - current/default branch:
 - branch intent evidence:
 - stack:
-- package manager:
+- dependency/build system:
 - commands:
-- path aliases:
-- architecture dirs:
-- styling/design-system:
-- state/data:
+- module/source boundaries:
+- presentation/design conventions when relevant:
+- state/data/persistence:
 - tests:
 - instruction surfaces:
 - verification memory:
@@ -71,10 +70,10 @@ Capture only what affects the task:
 
 Before editing, the agent can state:
 
-- package manager and validation commands
+- dependency/build system and validation commands
 - current change evidence and the shared default-branch baseline
 - target architecture boundary
-- reusable components/services/config already checked
+- reusable modules, services, assets, and configuration already checked
 - task-specific skill selected or intentionally skipped
 
 ## Escalation

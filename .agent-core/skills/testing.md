@@ -36,10 +36,10 @@ From repo inspection and nearby files, identify:
 
 | Risk | Examples | Validation |
 |---|---|---|
-| P0 | auth, payment, storage, migration, release config | tests/build + lint + typecheck + risk note |
-| P1 | primary user journey, data mutation, navigation | focused tests or manual flow + lint + typecheck |
-| P2 | shared util/hook/service | unit tests when tooling exists |
-| P3 | copy/docs/simple style | diff check or lint |
+| P0 | security, persistence, migration, public contract, release configuration | comprehensive repository checks + runtime or rollout evidence + risk note |
+| P1 | primary behavior, state or data mutation, external interface | focused automated or observed flow + applicable static checks |
+| P2 | shared module, utility, adapter, or service | targeted tests when tooling exists |
+| P3 | docs, metadata, or local presentation | diff, format, or repository-defined static check |
 
 ## Rules
 
@@ -69,9 +69,8 @@ Report:
 - state transition:
 
 [Validation]
-- lint:
-- typecheck:
+- static checks:
 - generated draft:
-- executed test/build/manual:
+- executed automated/build/runtime/manual:
 - skipped and why:
 ```

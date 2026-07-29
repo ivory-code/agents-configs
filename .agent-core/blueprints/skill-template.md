@@ -65,7 +65,7 @@ Inspect these before acting:
 
 [Validation]
 - generated:
-- executed lint/typecheck/test/build:
+- executed static/automated/build/runtime/manual:
 
 [Risk]
 - none | <risk>

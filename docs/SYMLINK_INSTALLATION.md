@@ -10,7 +10,7 @@ Copy mode is safer for one-off projects. Symlink mode is better when you want up
 ./scripts/bootstrap.sh all /path/to/project
 ```
 
-Copy mode writes independent files into the target project:
+Copy mode writes a project-owned configuration tree into the target project:
 
 ```text
 /path/to/project/.agent-core/
@@ -18,6 +18,8 @@ Copy mode writes independent files into the target project:
 /path/to/project/.codex/
 /path/to/project/.claude/
 ```
+
+The top-level directories no longer depend on this source checkout. The two discovery adapters remain relative symlinks inside the copied tree so both resolve to the copied canonical skill package.
 
 Use this when:
 
@@ -46,6 +48,15 @@ Use this when:
 - skill updates should apply everywhere immediately
 - you want to avoid duplicated local copies drifting apart
 
+## Skill Discovery
+
+The canonical R2C package lives in `.agent-core/skills/risk-to-confidence`.
+
+- `.agents/skills/risk-to-confidence` is the formal Agent Skills discovery adapter.
+- `.claude/skills/risk-to-confidence` is the Claude Code discovery adapter.
+
+Both adapters are relative symlinks to the canonical package. Copy mode preserves these internal links inside the target repository; symlink mode connects the top-level config directories back to this repository. Run `doctor.sh` after either installation to confirm that both the top-level directories and selected discovery paths resolve.
+
 ## Safety Checks
 
 Preview an install:
@@ -60,7 +71,7 @@ Check an installed target:
 ./scripts/doctor.sh /path/to/project all
 ```
 
-Use `codex` or `claude` for a single-tool installation. Omit the mode for a non-strict, auto-detected check.
+Use `codex` or `claude` for a strict single-tool installation check. Omit the mode to require the common core and R2C discovery path while treating tool-specific directories as optional.
 
 Replace existing copied directories with symlinks:
 
@@ -69,6 +80,8 @@ Replace existing copied directories with symlinks:
 ```
 
 Only use `--force` after reviewing the target repo. It replaces matching `.agent-core`, `.agents`, `.codex`, and `.claude` paths.
+
+Do not commit link-mode top-level symlinks to a shared or public repository: they contain checkout-specific absolute paths. Use copy mode when the installed configuration will be committed.
 
 ## Recommended Strategy
 

@@ -63,7 +63,7 @@ Store durable contracts, not a full generated graph or one-off branch output.
 
 ## Promotion Rules
 
-- Keep behavior ids stable and product-oriented; do not name internal helpers or file layout.
+- Keep behavior ids stable and outcome-oriented; do not name internal helpers or file layout.
 - Add only behavior that affects repeated review or verification decisions.
 - Record evidence and uncertainty instead of presenting inference as fact.
 - Promote a branch lesson only after a human accepts it as durable.

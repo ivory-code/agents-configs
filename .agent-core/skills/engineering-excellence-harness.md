@@ -2,15 +2,15 @@
 
 ## Purpose
 
-Raise codebase quality through architecture boundaries, reuse, design-system discipline, performance, testing, privacy, and release safety.
+Raise codebase quality through architecture boundaries, reuse, interface discipline, performance, testing, privacy, and release safety.
 
 ## Trigger
 
 Use this skill when:
 
 - planning or implementing non-trivial code changes
-- refactoring architecture, shared UI, services, state, or data flow
-- improving design system adoption, reusability, performance, or test coverage
+- refactoring architecture, shared modules, interfaces, state, persistence, or data flow
+- improving repository fit, reusability, performance, or test coverage
 - reviewing a PR for maintainability and regression risk
 - preparing a release or high-risk change
 
@@ -20,7 +20,7 @@ Inspect before editing:
 
 - active repo profile and validation commands
 - target files and neighboring conventions
-- existing shared components/services/hooks
+- existing shared modules, libraries, services, scripts, and configuration
 - current tests and quality gates
 - performance/privacy/release risks for the touched surface
 
@@ -28,7 +28,7 @@ Inspect before editing:
 
 1. Identify the intended behavior from the request, commits, and diff; mark assumptions.
 2. Identify the change type and risk level.
-3. Map the impacted behavior and boundaries: screen, feature, service, shared UI, config.
+3. Map the impacted behavior and boundaries: entry point, module, interface, state, persistence, configuration.
 4. Reuse existing patterns before creating new ones.
 5. Keep source of truth minimal; derive everything else.
 6. Add or update tests/checks proportional to risk and behavior lifecycle.
@@ -38,23 +38,23 @@ Inspect before editing:
 
 | Pillar | Rule |
 |---|---|
-| Architecture | separate UI, state, domain logic, services, and config |
-| Reuse | create explicit contracts; avoid copy-paste and prop explosion |
-| Design system | use existing components/tokens before custom styling |
-| Type safety | no new `any`; validate unknown boundaries |
-| State | store minimal source of truth; derive during render where possible |
-| Performance | avoid unstable refs in lists, expensive render work, unnecessary subscriptions |
+| Architecture | preserve observed boundaries and separate interfaces, rules, state, persistence, and configuration |
+| Reuse | create explicit contracts; avoid copy-paste and configuration or parameter sprawl |
+| Repository fit | use existing libraries, modules, assets, and patterns before introducing new structures |
+| Type and schema safety | preserve declared contracts and validate unknown boundaries |
+| State | store the minimum source of truth and derive values at the appropriate boundary |
+| Performance | avoid repeated work, unnecessary I/O, unstable references, and unneeded subscriptions |
 | Testing | derive verification scenarios from changed behavior before selecting a runner |
-| Privacy | avoid leaking personal content to logs, analytics, or share artifacts |
+| Privacy | avoid leaking sensitive data to logs, telemetry, or shared artifacts |
 | Release | verify environment, version source of truth, and rollback risk |
 
 ## Risk Levels
 
 | Level | Examples | Minimum Gate |
 |---|---|---|
-| Low | docs, copy, isolated style | diff check or lint |
-| Medium | component/state/refactor | lint + typecheck |
-| High | auth, storage, payment, release, migration | lint + typecheck + test/build + risk note |
+| Low | docs, metadata, local formatting | diff or repository-defined static check |
+| Medium | shared module, state, interface, refactor | targeted static checks and tests when available |
+| High | security, persistence, public contract, release, migration | applicable static checks + tests/build/runtime evidence + risk note |
 
 ## Decision Rules
 
@@ -80,9 +80,9 @@ Inspect before editing:
 - exceptions:
 
 [Validation]
-- lint:
-- typecheck:
-- test/build:
+- static checks:
+- tests:
+- build/runtime:
 
 [Risk]
 - residual:
@@ -91,4 +91,4 @@ Inspect before editing:
 
 ## Escalation
 
-Pause before changing storage schema, authentication behavior, public API contracts, release configuration, analytics/privacy behavior, or shared design-system primitives.
+Pause before changing persistence schemas, authentication or authorization behavior, public contracts, release configuration, privacy behavior, or shared platform primitives.

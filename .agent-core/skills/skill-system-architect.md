@@ -9,7 +9,7 @@ Design, refactor, and validate reusable agent skills so they stay portable, conc
 Use this skill when:
 
 - creating a new reusable skill
-- restructuring `.agent-core/skills`, `.codex`, or `.claude` instructions
+- restructuring `.agent-core/skills`, `.agents`, `.codex`, or `.claude` instructions
 - turning repeated agent behavior into a reusable workflow
 - deciding whether content belongs in a core skill, profile, reference, or project-local doc
 - reviewing skills for overlap, bloat, missing validation, or weak triggers
@@ -20,6 +20,7 @@ Inspect before editing:
 
 - `.agent-core/skills/index.md`
 - existing related skills
+- `.agents/skills` when formal discovery adapters exist
 - `.codex/AGENTS.md` and `.claude/CLAUDE.md`
 - repo inspection output or generated profile when project-specific
 - `docs/UNIVERSAL_SKILLSET_BLUEPRINT.md` if present
@@ -38,8 +39,9 @@ Inspect before editing:
 
 - Core reusable rule: `.agent-core/skills/<name>.md`
 - Repo-specific convention: target repo profile/doc generated from `.agent-core/blueprints/profile-template.md`
-- Large reference table: `.agent-core/references/<topic>.md` when introduced
 - Formal cross-agent skill: `.agent-core/skills/<skill-name>/SKILL.md` after the workflow is stable
+- Formal skill reference: `.agent-core/skills/<skill-name>/references/<topic>.md`
+- Cross-skill shared reference: `.agent-core/references/<topic>.md` when introduced
 - Discovery adapter: point the supported agent skill directory at the canonical `.agent-core/skills/<skill-name>` package
 - Agent-specific wording: `.codex/AGENTS.md` or `.claude/CLAUDE.md`
 
@@ -54,7 +56,8 @@ Inspect before editing:
 
 ## Validation Gate
 
-- Skill has purpose, trigger, required context, operating loop, decision rules, validation gate, escalation.
+- Flat skill has purpose, trigger, required context, operating loop, decision rules, validation gate, and escalation.
+- Formal package has valid `name` and `description` frontmatter, concrete trigger boundaries, procedural instructions, done criteria, and resolvable package references.
 - Skill is referenced in `skills/index.md` if it should be discoverable.
 - Agent entry files mention it only if it belongs in the default load/optional list.
 - No project-specific secrets, branch names, or volatile release numbers in core skills.

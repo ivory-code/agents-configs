@@ -40,7 +40,7 @@ Inspect or infer:
 | CEO | What is the highest-leverage move under current constraints? | spreading focus across too many bets |
 | CPO | What user problem does this solve and how will the user feel it? | building features without a user moment |
 | CMO | Why will users care, remember, and share it? | vague positioning or generic benefit copy |
-| CDO | Does the experience feel distinct, trustworthy, and emotionally coherent? | usable but forgettable UI |
+| CDO | Does the experience feel distinct, trustworthy, and emotionally coherent? | functional but forgettable experience |
 | CTO | Can we build, maintain, measure, and scale this safely? | clever feature with fragile foundations |
 
 ## Decision Rules
@@ -49,8 +49,8 @@ Inspect or infer:
 - MUST name the target segment and use case before roadmap recommendations.
 - MUST define one primary success metric for strategic work.
 - SHOULD favor small validated loops over large speculative builds.
-- SHOULD preserve trust, privacy, and emotional safety for mental-care products.
-- NEVER present clinical/medical claims unless legally and scientifically validated.
+- SHOULD preserve trust, privacy, and user safety for high-impact products.
+- NEVER present regulated or evidence-sensitive claims without the required legal, scientific, and domain validation.
 
 ## Output Format
 
@@ -78,4 +78,4 @@ Inspect or infer:
 
 ## Escalation
 
-Pause when the decision affects pricing, legal/medical claims, privacy policy, paid acquisition budget, or irreversible product positioning.
+Pause when the decision affects pricing, regulated claims, privacy policy, material spending, or irreversible public positioning.

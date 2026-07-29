@@ -21,9 +21,11 @@ elif [[ -f gradlew || -f build.gradle || -f build.gradle.kts ]]; then pm="gradle
 elif [[ -f mvnw || -f pom.xml ]]; then pm="maven";
 else pm="unknown"; fi
 
+echo "dependency_system: $pm"
 echo "package_manager: $pm"
 
-if command -v node >/dev/null 2>&1; then
+if [[ -f package.json ]] && command -v node >/dev/null 2>&1; then
+echo "node_manifest_enrichment:"
 node <<'NODE'
 const fs = require('fs');
 const path = require('path');
@@ -70,11 +72,19 @@ if (paths) {
   }
 }
 NODE
+elif [[ -f package.json ]]; then
+  echo "node_manifest_enrichment: unavailable (node not installed)"
+  echo "package_name: unavailable"
+  echo "frameworks: unavailable"
+  echo "state_data: unavailable"
+  echo "test_tools: unavailable"
+  echo "scripts:"
 else
-  echo "package_name: unavailable (node not installed)"
-  echo "frameworks: unknown"
-  echo "state_data: unknown"
-  echo "test_tools: unknown"
+  echo "node_manifest_enrichment: not applicable"
+  echo "package_name: not applicable"
+  echo "frameworks: not applicable"
+  echo "state_data: not applicable"
+  echo "test_tools: not applicable"
   echo "scripts:"
 fi
 

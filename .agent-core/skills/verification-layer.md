@@ -36,7 +36,7 @@ Inspect or collect:
 3. For behavior-bearing changes, map trigger, precondition, action, state change, side effect, and observable outcome.
 4. Derive only the applicable primary, failure, boundary, and state-transition scenarios.
 5. Split validation into three layers:
-   - binary checks: pass/fail tests, typecheck, lint, build, E2E, API contracts
+   - binary checks: repository-defined automated tests, schema or static analysis, build or packaging, runtime or interface contracts
    - quantitative metrics: latency, coverage, error rate, cost, size, throughput
    - qualitative rubrics: UX, architecture fit, domain correctness, maintainability, trust
 6. Mark each layer as existing, missing, or needs expansion.
@@ -88,4 +88,4 @@ Before finishing, provide:
 
 ## Escalation
 
-Pause when the output affects production data, security, payment, legal claims, medical claims, privacy, or irreversible public messaging.
+Pause when the output affects production data, security, regulated or evidence-sensitive decisions, privacy, or irreversible public messaging.

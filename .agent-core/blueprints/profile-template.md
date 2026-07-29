@@ -7,32 +7,31 @@ Use this template when creating a target-repo profile, for example `.agent-profi
 
 ## Stack Snapshot
 
-- Runtime/framework:
-- Language:
-- Package manager:
-- State/data:
-- Styling/design system:
-- Navigation/routing:
+- Runtime/platform:
+- Language/data format:
+- Dependency/build system:
+- State/data/persistence:
+- Presentation/design conventions when relevant:
+- Entrypoints/routing:
 - Test tooling:
-- Deployment target:
+- Packaging/deployment target:
 
 ## Commands
 
 ```bash
 <install command>
-<dev command>
-<lint command>
-<typecheck command>
+<run command>
+<format/static-check command>
 <test command>
-<build command>
+<build/package command>
 ```
 
 ## Source of Truth
 
 - version:
 - environment:
-- design tokens:
-- API schema:
+- interface/schema:
+- shared assets/tokens when relevant:
 - release metadata:
 
 ## Change Context
@@ -51,20 +50,20 @@ Use this template when creating a target-repo profile, for example `.agent-profi
 
 ## Architecture Rules
 
-- screen/page layer:
-- feature/domain layer:
-- service/data layer:
-- shared UI layer:
-- import aliases:
+- entrypoint/interface layer:
+- domain/processing layer:
+- data/persistence layer:
+- shared modules/assets:
+- dependency/import rules:
 
 ## Quality Gates
 
 | Change Type | Required Validation |
 |---|---|
-| docs only | `git diff --check` |
-| low-risk code | lint + typecheck |
-| UI | lint + typecheck + visual/manual check |
-| data/auth/payment/release | lint + typecheck + tests/build + risk note |
+| docs/configuration only | diff, format, or schema check |
+| low-risk local change | repository-defined static or targeted check |
+| interface/state/persistence | targeted tests plus applicable static/runtime checks |
+| security/migration/public contract/release | comprehensive repository checks + risk note |
 
 ## Risk Points
 

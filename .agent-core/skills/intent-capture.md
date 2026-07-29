@@ -36,7 +36,8 @@ Inspect or collect:
    - project convention: target repo doc or profile
    - reviewed behavior and QA policy: target repo verification baseline
    - reusable behavior: `.agent-core/skills`
-   - long reference: `.agent-core/references`
+   - one formal skill's reference: `.agent-core/skills/<name>/references`
+   - reference shared by multiple skills: `.agent-core/references`
    - temporary handoff: task note or PR description
 7. Use the feedback lifecycle: infer -> human review -> accept/reject -> durable correction.
 8. Write only the accepted, reusable lesson that will prevent future repeated explanation.

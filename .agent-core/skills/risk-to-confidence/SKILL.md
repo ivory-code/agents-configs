@@ -12,7 +12,7 @@ Turn uncertainty into an executable contract, then close the work with evidence.
 ## Start
 
 1. Determine the requested exit point: risk review, contract and plan, implementation, integration, or complete delivery.
-2. An explicit Risk-to-Confidence request may intentionally stop at the Risk Map or Contract. For an ordinary review or explanation request, use the relevant stage skill instead. Unless constrained otherwise, carry authorized implementation work through the Confidence Pack.
+2. An explicit Risk-to-Confidence request may stop at any requested named exit point, including the Risk Map or Contract. For an ordinary review or explanation request, use the relevant stage skill instead. Unless constrained otherwise, carry authorized implementation work through the Confidence Pack.
 3. Use `repo-convention-intelligence` to inspect the target before asking questions. If that specialist is unavailable, use [Repository Context Fallback](references/repository-adapter.md).
 4. Select an execution level.
 
@@ -20,7 +20,7 @@ Turn uncertainty into an executable contract, then close the work with evidence.
 | --- | --- | --- | --- |
 | **Compact** | The change is local, reversible, and does not alter behavior contracts, shared boundaries, or external dependencies | Keep the Risk Map and Contract in the conversation | Focused diff plus available targeted checks |
 | **Standard** | One bounded subsystem changes behavior, state, data, or an interface | Use conversational handoff; persist only when the task is long-running or handed off | Applicable tests and static/runtime checks; independent review when risk warrants it |
-| **Expanded** | Multiple subsystems, shared contracts, security, data meaning, migration, or rollout order are involved | Persist the contract, plan, and evidence when the user or repository provides a location | Consumer checks, compatibility and rollout gates, and independent review |
+| **Expanded** | Multiple subsystems, shared contracts, security, data meaning, migration, or rollout order are involved | Persist the contract, plan, and evidence when the user supplies or authorizes a location | Consumer checks, compatibility and rollout gates, and independent review |
 
 5. For durable handoff, read [Artifact Contracts](references/artifact-contracts.md). Choose the artifact location in this order: user-provided location, an existing repository convention the user has authorized, otherwise conversation-only output. Do not create workflow files in a target repository merely because this skill ran.
 

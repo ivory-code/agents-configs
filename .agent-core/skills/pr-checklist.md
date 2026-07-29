@@ -20,10 +20,10 @@ Use the repo inspection summary, git diff, and validation outputs. Do not re-rea
 4. Low-confidence or conflicting intent is marked for human review.
 5. No unrelated files or generated noise are included.
 6. Local conventions were followed.
-7. Existing reusable components/services/config were preferred.
+7. Existing reusable modules, services, assets, and configuration were preferred.
 8. Validation commands from repo context were run or explicitly skipped with reason.
 9. Generated drafts are not reported as passing evidence unless they were executed.
-10. Risky areas are called out: auth, storage, payment, privacy, release, migration.
+10. Risky areas are called out: security, persistence, public contracts, privacy, release, migration, or regulated impact.
 11. Accepted corrections that should help future changes were captured in durable repo memory.
 12. Follow-up work is separated from this PR.
 
@@ -39,10 +39,9 @@ Use the repo inspection summary, git diff, and validation outputs. Do not re-rea
 - primary/failure/boundary/state transition:
 
 [Validation]
-- lint:
-- typecheck:
+- static checks:
 - generated:
-- executed test/build/manual:
+- executed automated/build/runtime/manual:
 
 [Risk]
 - none | <risk>

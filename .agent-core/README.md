@@ -26,9 +26,11 @@ Vendor-neutral agent skills, scripts, and blueprints for reuse across repositori
 - `testing.md`
 - `pr-checklist.md`
 
+`risk-to-confidence` is the formal end-to-end orchestrator. Its canonical package stays under `.agent-core`; `.agents/skills` and `.claude/skills` provide thin discovery adapters. It may be selected automatically for non-trivial end-to-end delivery, while an explicit invocation may stop at an earlier phase gate.
+
 ## Scripts
 
-- `scripts/inspect-repo.sh`: summarize stack, package manager, commands, aliases, key files, and convention clues.
+- `scripts/inspect-repo.sh`: summarize generic repository, manifest, instruction, and convention clues, with optional structured `package.json` enrichment when Node.js is available.
 
 ## Blueprints
 

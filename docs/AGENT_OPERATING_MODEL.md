@@ -25,6 +25,10 @@ Risk Map -> Executable Contract -> Dependency-Aware Build
 
 The orchestrator composes the existing repository, engineering, testing, and verification skills; it does not replace their detailed rules.
 
+R2C may be selected automatically only for end-to-end delivery. An explicit invocation may stop at any requested named exit point, including the Risk Map or Contract, without authorizing later phases. Contract readiness is expressed as `BUILD READY`, `BUILD READY WITH GATES`, or `BUILD BLOCKED`; final evidence is expressed as `READY`, `READY WITH DEFERRED`, or `NOT READY`.
+
+See [Risk-to-Confidence Workflow](RISK_TO_CONFIDENCE.md) for routing, artifacts, invocation, and verdict semantics.
+
 ## 1. Shared Source Of Truth
 
 Agent configs drift when every project and every agent tool gets its own copied instruction set.
@@ -45,7 +49,8 @@ When a conversation reveals repeated context, constraints, or taste, capture it:
 
 - project-specific convention -> target repo doc/profile
 - reusable agent behavior -> `.agent-core/skills`
-- long reference -> `.agent-core/references`
+- one formal skill's reference -> `.agent-core/skills/<name>/references`
+- reference shared by multiple skills -> `.agent-core/references`
 - temporary handoff -> PR body, task note, or decision log
 
 Keep shared behavior and verification baselines on the default branch. Treat branch-local observations as proposals until a human accepts them as durable corrections.
@@ -72,7 +77,7 @@ AI-generated output can look correct while creating hidden integration, domain, 
 
 Before trusting important generated output, define:
 
-- binary checks: tests, typecheck, lint, build, E2E, API contracts
+- binary checks: repository-defined automated tests, schema or static analysis, build or packaging, runtime or interface contracts
 - quantitative metrics: latency, cost, coverage, error rate, size
 - qualitative rubrics: architecture fit, UX clarity, domain correctness, maintainability
 
