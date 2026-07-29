@@ -126,6 +126,7 @@ install_dir() {
 
 install_common() {
   install_dir ".agent-core"
+  install_dir ".agents"
 }
 
 install_codex() {

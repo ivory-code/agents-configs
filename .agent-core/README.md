@@ -14,6 +14,7 @@ Vendor-neutral agent skills, scripts, and blueprints for reuse across repositori
 ## Core Skills
 
 - `repo-convention-intelligence.md`
+- `risk-to-confidence/SKILL.md`
 - `engineering-excellence-harness.md`
 - `executive-operating-harness.md`
 - `intent-capture.md`

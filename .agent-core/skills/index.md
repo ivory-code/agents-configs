@@ -16,7 +16,10 @@ Use the smallest relevant skill set. Do not load every skill by default.
 | Capturing tacit knowledge, repeated context, or durable agent memory | `intent-capture` |
 | Turning implicit quality judgment or taste into reusable rubrics | `taste-calibration` |
 | Product strategy / roadmap / positioning / monetization | `executive-operating-harness` |
+| End-to-end non-trivial feature or specification delivery | `risk-to-confidence` |
 | Non-trivial code change / refactor / release risk | `engineering-excellence-harness` |
+
+`risk-to-confidence` is an orchestrator. Invoke it automatically only when the request spans contract, implementation, integration, and evidence. An explicit R2C request may stop at an earlier named gate; otherwise use the existing stage skill for an isolated task.
 
 ## Step 3: Task Skills
 

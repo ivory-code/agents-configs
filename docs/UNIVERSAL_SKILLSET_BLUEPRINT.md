@@ -29,6 +29,10 @@ A portable skillset should help an agent understand the current repo quickly, ch
   skills/
     index.md
     repo-convention-intelligence.md
+    risk-to-confidence/
+      SKILL.md
+      references/
+      agents/
     engineering-excellence-harness.md
     executive-operating-harness.md
     intent-capture.md
@@ -39,8 +43,11 @@ A portable skillset should help an agent understand the current repo quickly, ch
     design-system.md
     testing.md
     pr-checklist.md
+.agents/skills/risk-to-confidence -> ../../.agent-core/skills/risk-to-confidence
 .codex/AGENTS.md
-.claude/CLAUDE.md
+.claude/
+  CLAUDE.md
+  skills/risk-to-confidence -> ../../.agent-core/skills/risk-to-confidence
 ```
 
 ## 3. Operating Flow
@@ -52,8 +59,10 @@ flowchart TD
     C --> C2[State change intent and confidence]
     C2 --> D{Task type}
     D -- Product / strategy --> E[Executive harness]
-    D -- Code / refactor / release risk --> F[Engineering harness]
+    D -- End-to-end non-trivial delivery --> R[Risk-to-Confidence]
+    D -- Isolated code / refactor / release risk --> F[Engineering harness]
     D -- Skill design --> G[Skill system architect]
+    R --> F
     F --> H[Task skill: code/design/testing/PR]
     E --> I[Decision / plan]
     G --> J[Skill update]

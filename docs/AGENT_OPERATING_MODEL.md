@@ -16,6 +16,15 @@ default-branch baseline + branch evidence
 
 The loop should be cheap enough to repeat in every repo and explicit enough that another agent can continue later. Tool or runner choice comes after the changed behavior and verification need are clear.
 
+For end-to-end non-trivial delivery, `risk-to-confidence` turns this loop into explicit phase gates:
+
+```text
+Risk Map -> Executable Contract -> Dependency-Aware Build
+  -> Progressive Integration -> Confidence Pack
+```
+
+The orchestrator composes the existing repository, engineering, testing, and verification skills; it does not replace their detailed rules.
+
 ## 1. Shared Source Of Truth
 
 Agent configs drift when every project and every agent tool gets its own copied instruction set.

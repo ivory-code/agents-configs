@@ -23,6 +23,7 @@ The goal is not to create a giant prompt. The goal is to keep agent behavior sma
   blueprints/      reusable skill and repo-profile templates
   scripts/         deterministic context and inspection helpers
   skills/          vendor-neutral operational skills
+.agents/           formal Agent Skills discovery adapters
 .codex/            Codex entrypoint that points to .agent-core
 .claude/           Claude entrypoint that points to .agent-core
 docs/              architecture and skillset notes
@@ -32,6 +33,7 @@ scripts/           bootstrap tools for copying configs into a target repo
 Core skills:
 
 - `repo-convention-intelligence`: inspect stack, commands, tests, and local conventions before acting.
+- `risk-to-confidence`: orchestrate an uncertain change through contract, build, integration, and evidence gates.
 - `engineering-excellence-harness`: guide non-trivial implementation, refactor, and release-risk work.
 - `executive-operating-harness`: guide roadmap, positioning, product, and strategy decisions.
 - `intent-capture`: turn repeated explanations and tacit judgment into durable docs, profiles, or skills.
@@ -69,12 +71,21 @@ cd /path/to/project
 .agent-core/scripts/inspect-repo.sh .
 ```
 
-The bootstrap script copies `.agent-core/` plus the selected tool-specific entrypoint. It may overwrite matching files in the target path, so review local changes before committing.
+The bootstrap script copies `.agent-core/`, `.agents/`, and the selected tool-specific entrypoint. It may overwrite matching files in the target path, so review local changes before committing.
 
 Check an installed project:
 
 ```bash
-./scripts/doctor.sh /path/to/project
+./scripts/doctor.sh /path/to/project all
+```
+
+Use `codex` or `claude` instead of `all` after a single-tool install. Omit the mode for a non-strict, auto-detected check.
+
+Invoke the workflow automatically only for a non-trivial change that spans planning, implementation, integration, and verification. You may also invoke it explicitly and name an earlier exit point, such as a Risk Map or Contract, without authorizing implementation:
+
+```text
+Codex:       $risk-to-confidence <request>
+Claude Code: /risk-to-confidence <request>
 ```
 
 See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-vs-symlink strategy.
@@ -85,7 +96,7 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 2. Read `.agent-core/skills/repo-convention-intelligence.md`.
 3. Separate the default-branch baseline from current branch evidence.
 4. State the intended behavior and confidence before selecting tools.
-5. Load only the task-specific skill from `.agent-core/skills/index.md`.
+5. For end-to-end non-trivial delivery, load `risk-to-confidence`; otherwise load only the task-specific skill from `.agent-core/skills/index.md`.
 6. Make the smallest useful change that follows the target repo.
 7. Validate applicable primary, failure, boundary, and state-transition risks.
 8. Report generated versus executed evidence and promote only reviewed corrections.
@@ -97,6 +108,7 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 - [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md)
 - [`.agent-core/README.md`](.agent-core/README.md)
 - [`.agent-core/skills/index.md`](.agent-core/skills/index.md)
+- [`.agent-core/skills/risk-to-confidence/SKILL.md`](.agent-core/skills/risk-to-confidence/SKILL.md)
 - [`.agent-core/blueprints/skill-template.md`](.agent-core/blueprints/skill-template.md)
 - [`.agent-core/blueprints/profile-template.md`](.agent-core/blueprints/profile-template.md)
 - [`.agent-core/blueprints/verification-baseline-template.md`](.agent-core/blueprints/verification-baseline-template.md)

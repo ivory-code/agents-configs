@@ -1,0 +1,4 @@
+interface:
+  display_name: "Risk to Confidence"
+  short_description: "Turn uncertain changes into evidence-backed delivery"
+  default_prompt: "Use $risk-to-confidence to deliver this change from risk mapping through verified evidence."

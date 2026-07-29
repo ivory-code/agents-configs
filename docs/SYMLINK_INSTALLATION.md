@@ -2,7 +2,7 @@
 
 Use symlink mode when this repository should remain the source of truth for several local projects.
 
-Copy mode is safer for one-off projects. Symlink mode is better when you want updates to `.agent-core`, `.codex`, or `.claude` to immediately appear in target repos without copying the same files again.
+Copy mode is safer for one-off projects. Symlink mode is better when you want updates to `.agent-core`, `.agents`, `.codex`, or `.claude` to immediately appear in target repos without copying the same files again.
 
 ## Copy Mode
 
@@ -14,6 +14,7 @@ Copy mode writes independent files into the target project:
 
 ```text
 /path/to/project/.agent-core/
+/path/to/project/.agents/
 /path/to/project/.codex/
 /path/to/project/.claude/
 ```
@@ -34,6 +35,7 @@ Symlink mode connects the target project back to this repository:
 
 ```text
 /path/to/project/.agent-core -> /path/to/agents-configs/.agent-core
+/path/to/project/.agents     -> /path/to/agents-configs/.agents
 /path/to/project/.codex      -> /path/to/agents-configs/.codex
 /path/to/project/.claude     -> /path/to/agents-configs/.claude
 ```
@@ -55,8 +57,10 @@ Preview an install:
 Check an installed target:
 
 ```bash
-./scripts/doctor.sh /path/to/project
+./scripts/doctor.sh /path/to/project all
 ```
+
+Use `codex` or `claude` for a single-tool installation. Omit the mode for a non-strict, auto-detected check.
 
 Replace existing copied directories with symlinks:
 
@@ -64,7 +68,7 @@ Replace existing copied directories with symlinks:
 ./scripts/bootstrap.sh --link --force all /path/to/project
 ```
 
-Only use `--force` after reviewing the target repo. It replaces matching `.agent-core`, `.codex`, and `.claude` paths.
+Only use `--force` after reviewing the target repo. It replaces matching `.agent-core`, `.agents`, `.codex`, and `.claude` paths.
 
 ## Recommended Strategy
 

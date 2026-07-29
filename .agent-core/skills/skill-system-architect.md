@@ -39,7 +39,8 @@ Inspect before editing:
 - Core reusable rule: `.agent-core/skills/<name>.md`
 - Repo-specific convention: target repo profile/doc generated from `.agent-core/blueprints/profile-template.md`
 - Large reference table: `.agent-core/references/<topic>.md` when introduced
-- Formal Codex skill: `<skill-name>/SKILL.md` only after the markdown skill is stable
+- Formal cross-agent skill: `.agent-core/skills/<skill-name>/SKILL.md` after the workflow is stable
+- Discovery adapter: point the supported agent skill directory at the canonical `.agent-core/skills/<skill-name>` package
 - Agent-specific wording: `.codex/AGENTS.md` or `.claude/CLAUDE.md`
 
 ## Decision Rules
