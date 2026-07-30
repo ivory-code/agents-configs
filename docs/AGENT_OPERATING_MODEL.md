@@ -10,7 +10,7 @@ default-branch baseline + branch evidence
   -> behavior lifecycle + scenario axes
   -> relevant skill + small action
   -> generated and executed evidence
-  -> human-reviewed correction
+  -> human-accepted correction
   -> durable repo memory
 ```
 
@@ -26,6 +26,8 @@ Risk Map -> Executable Contract -> Dependency-Aware Build
 The orchestrator composes the existing repository, engineering, testing, and verification skills; it does not replace their detailed rules.
 
 R2C may be selected automatically only for end-to-end delivery. An explicit invocation may stop at any requested named exit point, including the Risk Map or Contract, without authorizing later phases. Contract readiness is expressed as `BUILD READY`, `BUILD READY WITH GATES`, or `BUILD BLOCKED`; final evidence is expressed as `READY`, `READY WITH DEFERRED`, or `NOT READY`.
+
+R2C keeps provenance, approval requirement, approval status, and blocking phase separate; checks each completed work unit against the Contract; and turns only human-accepted lessons from repeated or non-obvious failures into durable memory. For delegated work, the coordinating context owns the Contract and phase gates while workers receive bounded slices and return evidence plus contract deltas.
 
 See [Risk-to-Confidence Workflow](RISK_TO_CONFIDENCE.md) for routing, artifacts, invocation, and verdict semantics.
 

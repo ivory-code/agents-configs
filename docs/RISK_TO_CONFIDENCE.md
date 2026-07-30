@@ -13,9 +13,12 @@ The canonical instructions live in [the R2C skill](../.agent-core/skills/risk-to
 
 - [When To Use It](#when-to-use-it)
 - [Phase Gates](#phase-gates)
+- [Decision Governance](#decision-governance)
 - [Execution Levels](#execution-levels)
 - [Artifact Policy](#artifact-policy)
 - [Specialist Composition](#specialist-composition)
+- [Context-Isolated Delegation](#context-isolated-delegation)
+- [Conformance And Learning](#conformance-and-learning)
 - [Invocation](#invocation)
 - [Verdicts](#verdicts)
 - [Installation And Discovery](#installation-and-discovery)
@@ -36,20 +39,43 @@ An explicit invocation does not authorize every phase. State the intended exit p
 
 | Phase | Main output | Exit condition |
 |---|---|---|
-| Risk Map | Current and intended behavior, affected boundaries, regression surface, classified uncertainty | Material impact and uncertainty are visible |
+| Risk Map | Current-state evidence plus governed Assumed, Decision, and Dependency items | Material impact, provenance, and approval metadata are visible |
 | Executable Contract | Scope, behavior, interfaces, failure handling, dependencies, acceptance criteria | Another agent can implement without hidden chat context |
-| Dependency-Aware Build | Small vertical results and recorded contract deltas | The smallest useful behavior works and targeted checks pass |
+| Dependency-Aware Build | Small vertical results and Contract Conformance results | The smallest useful behavior works and targeted checks pass |
 | Progressive Integration | One verified boundary at a time, with temporary seams removed or owned | Dependencies are integrated or represented by explicit gates |
 | Confidence Pack | Executed checks, impact review, decision closure, residual risk | Final readiness verdict is supported by evidence |
 
-R2C classifies uncertainty as:
+## Decision Governance
+
+R2C keeps five fields separate:
+
+1. uncertainty class
+2. provenance
+3. approval requirement
+4. approval status
+5. blocking phase
+
+It classifies uncertainty as:
 
 - `Verified`: directly supported by code, tests, logs, supplied contracts, or user input
 - `Assumed`: reversible and safely inferred from an established pattern
 - `Decision`: requires a human choice because behavior, scope, compatibility, or risk changes
 - `Dependency`: requires an external artifact, system, environment, team, or approval
 
-Every Decision and Dependency records its blocking phase, owner, resolution condition, and unaffected work that may continue.
+Current-state evidence is recorded separately from intended changes. Every material Assumed, Decision, and Dependency carries a stable identifier and provenance:
+
+| Provenance | Meaning |
+|---|---|
+| `User` | An explicit user-originated claim or constraint |
+| `Repository` | Observed code, tests, history, configuration, or repository documentation |
+| `External Contract` | An inspected interface, specification, environment, or external authority |
+| `Agent Default` | A fallback proposed by the agent |
+
+Approval requirement is `Required` or `Not Required`. Approval status is `Open`, `Approved`, `Rejected`, or `Not Applicable`; `Not Applicable` pairs only with `Not Required`. Timing belongs in the separate `Build`, `Integration`, or `Release` blocking phase. Approval does not rewrite provenance.
+
+A Decision always requires human approval. An Agent Default may remain Assumed only when it is reversible and does not change behavior, scope, compatibility, authority, or material risk. It never closes a Decision.
+
+Every Decision and Dependency records its blocking phase, owner, resolution condition, verification method, and unaffected work. A resolved required approval also records its approver and approval evidence.
 
 ## Execution Levels
 
@@ -94,6 +120,38 @@ R2C owns phase transitions and readiness gates. Existing skills keep ownership o
 
 Code, design, security, migration, release, or other specialists are loaded only when the actual change requires them.
 
+## Context-Isolated Delegation
+
+For Standard or Expanded work, the coordinating context owns the Risk Map, Contract, and phase gates. Delegate only a bounded contract slice with its repository evidence, dependencies, and completion criteria.
+
+A worker returns:
+
+- changed artifacts
+- checks it actually executed
+- blockers
+- any contract delta
+
+An independent reviewer receives the request or contract, the diff, executed evidence, and unresolved items, but not implementation-session reasoning or a desired conclusion. Compact work does not need this ceremony unless delegation materially helps.
+
+## Conformance And Learning
+
+After each work unit, compare the contracted outcome with the observed result:
+
+| Delta | Handling |
+|---|---|
+| `None` | Continue |
+| `Structural` | Continue only when observable behavior and constraints remain unchanged |
+| `Behavioral` | Correct the output unless the corresponding Decision is Approved with approver and evidence recorded |
+| `Evidence` | Update validation or block when required proof is no longer available |
+
+Use separate entries when one work unit creates more than one delta class. The Contract remains authoritative. An Approved Decision permits only the recorded Contract revision; it does not grant authority to commit, deploy, or mutate external systems. An Evidence delta may move to a later gate only when the proof is not required now and its blocking phase, owner, and verification method are recorded; the conformance entry must link to that gate or contain those fields inline. Otherwise block.
+
+For check results, `NOT RUN` means the check was not attempted. `BLOCKED` means a missing prerequisite prevents a required check. Compact work may perform one conformance check before Integration.
+
+The Confidence Pack ends with a Learning Check: identify repeated or non-obvious failures, determine whether a reusable rule was missing or wrong, and state the smallest candidate lesson. Record its disposition as `None`, `Proposed`, `Accepted`, or `Rejected`. Only a lesson with `Accepted` disposition and human acceptance evidence becomes durable memory; otherwise it remains current-task evidence.
+
+For Standard or Expanded work, optional harness signals include review/fix rounds, human decisions or interventions, contract deltas, and repeated failure patterns. These diagnose the workflow. Lines changed and pull-request count are not confidence or productivity measures.
+
 ## Invocation
 
 Full delivery:
@@ -120,14 +178,14 @@ $risk-to-confidence Prepare a durable Contract and Plan for <change>; do not imp
 
 Before implementation:
 
-- `BUILD READY`: the implementation contract is closed
+- `BUILD READY`: the implementation contract is closed and no Build approval remains Open
 - `BUILD READY WITH GATES`: implementation can start while named Integration or Release gates remain
-- `BUILD BLOCKED`: safe implementation cannot start
+- `BUILD BLOCKED`: a Build-phase Decision, Dependency, or required approval remains Open
 
 At the end:
 
-- `READY`: acceptance criteria and required validation are closed with evidence
-- `READY WITH DEFERRED`: the core outcome is verified and every remaining item has an owner and confirmation method
+- `READY`: acceptance criteria, required validation, and all required delivery approvals are closed with evidence
+- `READY WITH DEFERRED`: the core outcome is verified and every future-gate item has an owner and confirmation method
 - `NOT READY`: a core outcome or required gate failed or remains blocked
 
 These verdicts describe evidence state. They do not grant permission to commit, publish, deploy, or change external systems.

@@ -45,16 +45,17 @@ If a specialist is unavailable, perform the smallest equivalent procedure from c
 - Do not ask the user for facts that the repository or supplied artifacts can answer.
 - Ask only when a decision materially changes behavior, scope, compatibility, risk, or an irreversible path.
 - Isolate unresolved dependencies behind explicit, replaceable seams and continue unaffected work.
+- Keep uncertainty class, provenance, approval requirement, approval status, and blocking phase separate.
 - Record what proved a claim, not merely that a check passed.
 - Do not expand authority, commit, publish, deploy, or mutate external systems unless requested.
 
 ## Transition Gates
 
-- **Risk Map → Contract**: affected boundaries and regression surfaces are known; uncertainty is classified with evidence.
+- **Risk Map → Contract**: affected boundaries and regression surfaces are known; current-state claims have evidence, and each material Assumed, Decision, and Dependency item has provenance and approval metadata.
 - **Contract → Build**: another agent can implement and verify without hidden chat context; verdict is `BUILD READY` or `BUILD READY WITH GATES`.
-- **Build → Integration**: the smallest useful vertical result works; available targeted checks pass; unavailable checks and contract deltas are recorded.
+- **Build → Integration**: the smallest useful vertical result works; available targeted checks pass; unavailable checks and Contract Conformance results are recorded.
 - **Integration → Confidence**: required dependencies are integrated or explicit Integration/Release gates have owners and resolution conditions; no hidden temporary seam remains.
-- **Confidence → Close**: executed evidence, impact review, applicable independent review, decision closure, and a final verdict exist.
+- **Confidence → Close**: executed evidence, impact review, Contract Conformance, applicable independent review, decision closure, approval evidence, a Learning Check disposition, and a final verdict exist.
 
 Do not label work as being in the next phase when its gate is not satisfied. Continue only independent tracks that remain safe.
 
@@ -69,7 +70,14 @@ Do not label work as being in the next phase when its gate is not satisfied. Con
    - **Assumed**: reversible and safely inferred from an established pattern
    - **Decision**: requires human choice because it changes behavior, scope, compatibility, or risk
    - **Dependency**: requires an external artifact, system, environment, team, or approval
-6. Ask before inspection only when the target cannot be located or different interpretations would create materially different investigations.
+6. Give each material Assumed, Decision, and Dependency item a stable identifier and provenance:
+   - **User**: an explicit user-originated claim or constraint
+   - **Repository**: observed code, tests, history, configuration, or repository documentation
+   - **External Contract**: an inspected interface, specification, environment, or external authority
+   - **Agent Default**: a proposed fallback selected by the agent
+7. Record approval requirement as `Required` or `Not Required`, status as `Open`, `Approved`, `Rejected`, or `Not Applicable`, and timing separately through the blocking phase. Use `Not Applicable` only with `Not Required`; approval does not change provenance.
+8. A Decision always requires human approval. An Agent Default may remain Assumed only when it is reversible and does not change behavior, scope, compatibility, authority, or material risk. It never closes a Decision.
+9. Ask before inspection only when the target cannot be located or different interpretations would create materially different investigations.
 
 The Risk Map must explain the behavior delta, not only list files.
 
@@ -89,9 +97,13 @@ Check every proposed implementation against current repository rules and archite
 
 For each Decision and Dependency, record:
 
+- stable item identifier and provenance
+- approval requirement and status
+- approver and approval evidence when approval is resolved
 - blocking phase: `Build`, `Integration`, or `Release`
 - owner or decision maker
-- resolution condition and verification method
+- resolution condition
+- verification method
 - unaffected work that may continue
 
 For multi-repository or staged delivery, define rollout order, compatibility window, missing-contract behavior, rollback path, and the difference between source implementation and deployed state.
@@ -100,18 +112,27 @@ Ask concrete questions using observation, current draft, options and impacts, re
 
 End with one build verdict:
 
-- **BUILD READY**: the implementation contract is closed
+- **BUILD READY**: the implementation contract is closed and no Build approval remains Open
 - **BUILD READY WITH GATES**: implementation may start, but named Integration or Release gates remain
-- **BUILD BLOCKED**: safe implementation cannot start without a Decision or Dependency
+- **BUILD BLOCKED**: a Build-phase Decision, Dependency, or required approval remains Open
 
 ## 3. Dependency-Aware Build
 
 1. Convert the contract into a dependency graph of work units.
 2. Start with the smallest vertical result that exposes real behavior early.
 3. Parallelize only independent tracks and only when available tooling and authority make it safe.
-4. Use mocks, simulators, adapters, or fixtures only as clearly labeled temporary seams with replacement conditions.
-5. Add or update checks at the boundary that best protects the changed behavior. Do not force a particular development ritual.
-6. After each work unit, record contract deltas and return to the Contract when behavior or data meaning changes.
+4. For Standard or Expanded work, use context-isolated delegation when it reduces coupling or preserves independent judgment:
+   - keep the Risk Map, Contract, and phase gates in the coordinating context
+   - give a worker only its contract slice, relevant repository evidence, dependencies, and completion criteria
+   - require the worker to return changed artifacts, executed evidence, blockers, and any contract delta
+   - do not expose implementation-session reasoning or desired conclusions to an independent reviewer
+5. Use mocks, simulators, adapters, or fixtures only as clearly labeled temporary seams with replacement conditions.
+6. Add or update checks at the boundary that best protects the changed behavior. Do not force a particular development ritual.
+7. Run a Contract Conformance Check after each work unit. Compare the contracted outcome with the observed result and classify the delta as `None`, `Structural`, `Behavioral`, or `Evidence`. Record separate entries when more than one class applies.
+8. Continue after a Structural delta only when observable behavior and constraints are unchanged. Correct the implementation for a Behavioral, data-meaning, compatibility, authority, or scope delta unless the corresponding Decision has `Approval status: Approved`, approver and evidence are recorded, and its approved outcome revises the Contract. This permits only the Contract revision; it does not grant authority to commit, deploy, or mutate external systems.
+9. For an Evidence delta, defer the proof only when it is not required by the current gate and a later blocking phase, owner, and verification method are recorded. Otherwise block.
+
+For Compact work, one conformance check before Integration is sufficient.
 
 ## 4. Progressive Integration
 
@@ -120,7 +141,7 @@ End with one build verdict:
 3. Distinguish local source readiness from availability in the target environment.
 4. Verify compatibility, failure, recovery, migration, and rollback behavior when applicable.
 5. Remove temporary seams or record the exact gate that still owns them.
-6. If an integrated dependency contradicts the contract, update the contract before adapting implementation.
+6. If an integrated dependency contradicts the Contract, reopen it and correct the implementation by default. Revise behavior, compatibility, data meaning, authority, or scope only after the corresponding Decision has `Approval status: Approved` with approver and evidence recorded.
 
 ## 5. Confidence Pack
 
@@ -131,14 +152,19 @@ End with one build verdict:
    - provide the request or contract, diff, executed evidence, and unresolved items
    - omit implementation-session reasoning and desired conclusions
    - collect findings first; apply fixes in the implementation context
-5. Reconcile every Verified, Assumed, Decision, and Dependency item as confirmed, changed, or deferred.
-6. Separate generated checks from executed evidence and record skipped checks with reasons.
-7. Promote only human-reviewed, reusable corrections into durable repository memory.
+5. Reconcile every Verified, Assumed, Decision, and Dependency item as confirmed, changed, or deferred. Preserve original provenance. No required approval may remain Open at a gate already crossed; record `Approved` or `Rejected`, the approver, approval evidence, and the resulting Contract state.
+6. Separate generated checks from executed evidence and record skipped checks with reasons. Use `NOT RUN` when a check was not attempted; use `BLOCKED` when a missing prerequisite prevents a required check.
+7. Run a Learning Check:
+   - identify repeated or non-obvious failures and any missing or incorrect reusable rule
+   - state the smallest candidate lesson, or explicitly record that no durable lesson was found
+   - record the disposition as `None`, `Proposed`, `Accepted`, or `Rejected`
+   - promote only human-accepted, reusable corrections into durable memory; otherwise keep the observation in current evidence
+8. For Standard or Expanded work, record workflow signals only when they help tune the harness: review/fix rounds, human decisions or interventions, contract deltas, and repeated failure patterns. Treat them as diagnostic signals, never as individual productivity scores; do not use lines changed or pull-request count as confidence evidence.
 
 End with one final verdict:
 
-- **READY**: acceptance criteria and required validation are closed with evidence
-- **READY WITH DEFERRED**: the core outcome is verified and every remaining item has an owner and confirmation method
+- **READY**: acceptance criteria, required validation, and all required delivery approvals are closed with evidence
+- **READY WITH DEFERRED**: the core outcome is verified and every future-gate item has an owner and confirmation method
 - **NOT READY**: a core outcome or required gate failed or remains blocked
 
 ## Loop Back

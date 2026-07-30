@@ -25,12 +25,19 @@ Status: EXPLORING / BLOCKED / CONTRACTED
 
 ## Risk Map
 
-| Class | Evidence | Current behavior | Intended impact |
-| --- | --- | --- | --- |
-| Verified | `path:line`, test, log, contract, or user input | ... | ... |
-| Assumed | established pattern | ... | ... |
-| Decision | human choice required | ... | ... |
-| Dependency | external requirement | ... | ... |
+### Current-State Evidence
+
+| Evidence ID | Provenance | Evidence | Current behavior | Affected boundary |
+| --- | --- | --- | --- | --- |
+| E1 | User / Repository / External Contract | `path:line`, test, log, contract, or user statement | ... | ... |
+
+### Governed Uncertainty
+
+| Item ID | Class | Claim or intended change | Provenance | Evidence | Impact |
+| --- | --- | --- | --- | --- | --- |
+| U1 | Assumed | ... | Repository / Agent Default | E1 or supplied evidence | ... |
+| U2 | Decision | ... | User / Repository / External Contract / Agent Default | why a human choice is material | ... |
+| U3 | Dependency | ... | User / Repository / External Contract | external requirement | ... |
 
 ## Executable Contract
 
@@ -59,15 +66,20 @@ Add this section only for multi-system or staged delivery:
 
 ## Decision Ledger
 
-| Class | Item | Blocking phase | Owner and resolution condition | Current handling | Impact |
-| --- | --- | --- | --- | --- | --- |
-| Assumed | ... | None | ... | reversible default | ... |
-| Decision | ... | Build / Integration / Release | ... | awaiting choice | ... |
-| Dependency | ... | Build / Integration / Release | ... | isolated seam | ... |
+| Item ID | Approval requirement | Approval status | Blocking phase | Owner or decision maker | Approver and evidence | Resolution condition | Verification method | Unaffected work | Current handling |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| U1 | Not Required | Not Applicable | None | implementer | Not Applicable | reversible and contract-neutral | focused check | all | reversible default |
+| U2 | Required | Open / Approved / Rejected | Build / Integration / Release | ... | ... | human choice recorded | ... | ... | awaiting choice |
+| U3 | Required / Not Required | Open / Approved / Rejected / Not Applicable | Build / Integration / Release | ... | ... | external requirement available | ... | ... | isolated seam |
 
 ## Decision Check
 
+- Item ID:
 - Observation:
+- Provenance:
+- Approval requirement:
+- Approval status:
+- Approver and evidence:
 - Current draft:
 - Options and impacts:
 - Recommended default:
@@ -89,7 +101,16 @@ Before accepting the DRAFT, confirm that:
 - repository evidence has answered everything it can answer
 - external contracts are not invented
 - stale plan snippets were checked against current architecture
-- every Decision and Dependency has a blocking phase, owner, and resolution condition
+- current-state evidence is separate from intended changes and governed uncertainty
+- every material Assumed, Decision, and Dependency has a stable identifier, provenance, and evidence
+- approval requirement, approval status, and blocking phase are separate
+- `Not Required` pairs with `Not Applicable`; `Required` pairs with `Open`, `Approved`, or `Rejected`
+- approval never rewrites an item's provenance
+- no Agent Default closes a Decision
+- every Assumed Agent Default is reversible and contract-neutral
+- every Decision and Dependency has a blocking phase, owner, resolution condition, verification method, and unaffected work
+- every resolved required approval records its approver and evidence
+- no Build approval remains Open for a build-ready verdict
 - another agent could implement and verify without hidden chat context
 
 ## PLAN.md
@@ -116,6 +137,14 @@ Status: PLANNED / IN PROGRESS / BLOCKED / IMPLEMENTED
 - Behavior:
 - Checks:
 
+## Context-Isolated Delegation
+
+Add for Standard or Expanded work only when delegation improves independence or throughput.
+
+| Worker | Contract slice and supplied evidence | Dependencies | Completion criteria | Required return |
+| --- | --- | --- | --- | --- |
+| ... | ... | ... | ... | changed artifacts, executed evidence, blockers, contract delta |
+
 ## Integration Sequence
 
 - [ ] temporary seam → real dependency
@@ -124,10 +153,10 @@ Status: PLANNED / IN PROGRESS / BLOCKED / IMPLEMENTED
 
 ## Integration and Release Gates
 
-| Phase | Condition | Owner | Verification method | Status |
-| --- | --- | --- | --- | --- |
-| Integration | ... | ... | ... | ... |
-| Release | ... | ... | ... | ... |
+| Gate ID | Phase | Condition | Owner | Verification method | Status |
+| --- | --- | --- | --- | --- | --- |
+| G1 | Integration | ... | ... | ... | ... |
+| G2 | Release | ... | ... | ... | ... |
 
 ## Validation Plan
 
@@ -180,6 +209,14 @@ Status: VERIFYING / BLOCKED / CLOSED
 - Compatibility, migration, and rollback:
 - Security, privacy, performance, or accessibility when applicable:
 
+## Contract Conformance
+
+| Work unit | Contracted outcome | Observed result | Delta class | Disposition | Deferred gate or closure evidence |
+| --- | --- | --- | --- | --- | --- |
+| ... | ... | ... | None / Structural / Behavioral / Evidence | Continue / Correct / Contract revised / Deferred / Blocked | gate ID, or phase + owner + verification method |
+
+Use a separate row for each delta class when a work unit creates more than one. Correct a Behavioral delta unless the corresponding Decision is `Approved` with approver and evidence recorded and its approved outcome revises the Contract. That approval permits only Contract revision, not commit, deploy, or external mutation. A Deferred Evidence delta must link to a PLAN gate or state its phase, owner, and verification method inline.
+
 ## Independent Review
 
 - Findings:
@@ -187,9 +224,28 @@ Status: VERIFYING / BLOCKED / CLOSED
 
 ## Decision Closure
 
-| Previous class | Final state | Conclusion or follow-up |
-| --- | --- | --- |
-| ... | confirmed / changed / deferred | ... |
+| Item ID | Previous class | Provenance | Approval requirement | Approval status | Approver and evidence | Final state | Conclusion or follow-up |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ... | ... | unchanged from DRAFT | Required / Not Required | Open / Approved / Rejected / Not Applicable | ... | confirmed / changed / deferred | ... |
+
+## Learning Check
+
+- Repeated or non-obvious failure:
+- Missing or incorrect reusable rule:
+- Candidate lesson, or `None`:
+- Disposition: None / Proposed / Accepted / Rejected
+- Human acceptance decision and evidence:
+- Durable destination, only if Accepted:
+
+## Workflow Signals
+
+Optional for Standard or Expanded work. Use for harness diagnosis, not productivity scoring.
+
+- Review/fix rounds:
+- Human decisions or interventions:
+- Contract deltas:
+- Repeated failure patterns:
+- Interpretation:
 
 ## Remaining Items
 
@@ -207,4 +263,6 @@ Status: VERIFYING / BLOCKED / CLOSED
 - READY / READY WITH DEFERRED / NOT READY
 ```
 
-Never mark an unexecuted check as `PASS`. Use `NOT RUN` or `BLOCKED` and state what would close it.
+Never mark an unexecuted check as `PASS`. Use `NOT RUN` when it was not attempted. Use `BLOCKED` when a missing prerequisite prevents a required check, and state what would close it.
+
+`READY` requires every required delivery approval to be `Approved` or resolved through a recorded rejection and Contract update. `READY WITH DEFERRED` may retain an `Open` approval only at a future gate with an owner and confirmation method.
