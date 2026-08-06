@@ -35,6 +35,7 @@ Use the repository's existing phase specialists when available instead of duplic
 - code, design, security, migration, or release guidance only when the change requires it
 - `intent-capture` only for corrections accepted as durable
 - `pr-checklist` only when pull-request finalization is requested
+- `task-cleanup` to assess cleanup after delivery; execute deletion only with explicit user authorization or a pre-existing cleanup policy
 
 If a specialist is unavailable, perform the smallest equivalent procedure from current repository evidence.
 
@@ -55,7 +56,7 @@ If a specialist is unavailable, perform the smallest equivalent procedure from c
 - **Contract → Build**: another agent can implement and verify without hidden chat context; verdict is `BUILD READY` or `BUILD READY WITH GATES`.
 - **Build → Integration**: the smallest useful vertical result works; available targeted checks pass; unavailable checks and Contract Conformance results are recorded.
 - **Integration → Confidence**: required dependencies are integrated or explicit Integration/Release gates have owners and resolution conditions; no hidden temporary seam remains.
-- **Confidence → Close**: executed evidence, impact review, Contract Conformance, applicable independent review, decision closure, approval evidence, a Learning Check disposition, and a final verdict exist.
+- **Confidence → Close**: executed evidence, impact review, Contract Conformance, applicable independent review, decision closure, approval evidence, a Learning Check disposition, a final verdict, and—when task resources were created—a task-cleanup verdict exist.
 
 Do not label work as being in the next phase when its gate is not satisfied. Continue only independent tracks that remain safe.
 
@@ -160,12 +161,15 @@ For Compact work, one conformance check before Integration is sufficient.
    - record the disposition as `None`, `Proposed`, `Accepted`, or `Rejected`
    - promote only human-accepted, reusable corrections into durable memory; otherwise keep the observation in current evidence
 8. For Standard or Expanded work, record workflow signals only when they help tune the harness: review/fix rounds, human decisions or interventions, contract deltas, and repeated failure patterns. Treat them as diagnostic signals, never as individual productivity scores; do not use lines changed or pull-request count as confidence evidence.
+9. After the delivery state is known, use `task-cleanup` when the task created a dedicated worktree, task directory, or branch. R2C may always assess and report cleanup eligibility, but execute deletion only when the user explicitly authorized it or an active policy already does. Keep unauthorized, open-PR, dirty, unpreserved, monitored, or still-needed resources as `CLEANUP DEFERRED`.
 
 End with one final verdict:
 
 - **READY**: acceptance criteria, required validation, and all required delivery approvals are closed with evidence
 - **READY WITH DEFERRED**: the core outcome is verified and every future-gate item has an owner and confirmation method
 - **NOT READY**: a core outcome or required gate failed or remains blocked
+
+When cleanup applies, report `CLEANED` or `CLEANUP DEFERRED` separately from the evidence verdict.
 
 ## Loop Back
 

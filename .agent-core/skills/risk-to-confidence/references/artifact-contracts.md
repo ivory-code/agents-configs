@@ -258,6 +258,17 @@ Optional for Standard or Expanded work. Use for harness diagnosis, not productiv
 - Unconfirmed contracts:
 - Rollout or smoke evidence:
 
+## Task Cleanup
+
+Add only when the task created cleanup resources or cleanup was explicitly requested.
+
+- Verdict: CLEANED / CLEANUP DEFERRED
+- Authorization source:
+- Removed worktrees and directories:
+- Removed remote and local branches:
+- Retained targets and failed safety gates:
+- Absence or retention evidence:
+
 ## Verdict
 
 - READY / READY WITH DEFERRED / NOT READY

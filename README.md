@@ -6,7 +6,7 @@ This repository is a personal public toolkit for making AI coding sessions start
 
 > Inspect the target repo first, load only the relevant skill, follow local conventions, and finish with validation evidence.
 
-For change-bearing work, this expands to: identify the branch intent from evidence, make uncertainty explicit, derive verification scenarios before choosing tools, and promote only reviewed corrections into repo memory.
+For change-bearing work, this expands to: identify the branch intent from evidence, make uncertainty explicit, derive verification scenarios before choosing tools, promote only accepted corrections into repo memory, and remove completed task resources safely.
 
 ## Why This Exists
 
@@ -34,6 +34,7 @@ Core skills:
 
 - `repo-convention-intelligence`: inspect stack, commands, tests, and local conventions before acting.
 - `risk-to-confidence`: orchestrate an uncertain change through contract, build, integration, and evidence gates.
+- `task-cleanup`: safely remove completed task worktrees, external task directories, and local and remote branches.
 - `engineering-excellence-harness`: guide non-trivial implementation, refactor, and release-risk work.
 - `executive-operating-harness`: guide roadmap, positioning, product, and strategy decisions.
 - `intent-capture`: turn repeated explanations and tacit judgment into durable docs, profiles, or skills.
@@ -79,7 +80,7 @@ Check an installed project:
 ./scripts/doctor.sh /path/to/project all
 ```
 
-Use `codex` or `claude` instead of `all` for a strict single-tool check. Omit the mode to require the common core and R2C discovery path while treating tool-specific directories as optional.
+Use `codex` or `claude` instead of `all` for a strict single-tool check. Omit the mode to require the common core and formal skill discovery paths while treating tool-specific directories as optional.
 
 Agents should select the workflow implicitly only for a non-trivial change that spans planning, implementation, integration, and verification. You may also invoke it explicitly and name an earlier exit point, such as a Risk Map or Contract, without authorizing implementation:
 
@@ -101,7 +102,8 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 5. For end-to-end non-trivial delivery, load `risk-to-confidence`; otherwise load only the task-specific skill from `.agent-core/skills/index.md`.
 6. Make the smallest useful change that follows the target repo.
 7. Validate applicable primary, failure, boundary, and state-transition risks.
-8. Report generated versus executed evidence and promote only reviewed corrections.
+8. Report generated versus executed evidence and promote only human-accepted corrections.
+9. After delivery is preserved, run `task-cleanup` for any dedicated task worktree, directory, or branch.
 
 ## Main Documents
 
@@ -112,6 +114,7 @@ See [`docs/SYMLINK_INSTALLATION.md`](docs/SYMLINK_INSTALLATION.md) for the copy-
 - [`.agent-core/README.md`](.agent-core/README.md)
 - [`.agent-core/skills/index.md`](.agent-core/skills/index.md)
 - [`.agent-core/skills/risk-to-confidence/SKILL.md`](.agent-core/skills/risk-to-confidence/SKILL.md)
+- [`.agent-core/skills/task-cleanup/SKILL.md`](.agent-core/skills/task-cleanup/SKILL.md)
 - [`.agent-core/blueprints/skill-template.md`](.agent-core/blueprints/skill-template.md)
 - [`.agent-core/blueprints/profile-template.md`](.agent-core/blueprints/profile-template.md)
 - [`.agent-core/blueprints/verification-baseline-template.md`](.agent-core/blueprints/verification-baseline-template.md)

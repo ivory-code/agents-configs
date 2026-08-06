@@ -19,7 +19,7 @@ Copy mode writes a project-owned configuration tree into the target project:
 /path/to/project/.claude/
 ```
 
-The top-level directories no longer depend on this source checkout. The two discovery adapters remain relative symlinks inside the copied tree so both resolve to the copied canonical skill package.
+The top-level directories no longer depend on this source checkout. The discovery adapters remain relative symlinks inside the copied tree so they resolve to the copied canonical skill packages.
 
 Use this when:
 
@@ -50,12 +50,25 @@ Use this when:
 
 ## Skill Discovery
 
-The canonical R2C package lives in `.agent-core/skills/risk-to-confidence`.
+The canonical formal skill packages live under `.agent-core/skills`:
 
 - `.agents/skills/risk-to-confidence` is the formal Agent Skills discovery adapter.
+- `.agents/skills/task-cleanup` is the completion-cleanup discovery adapter.
 - `.claude/skills/risk-to-confidence` is the Claude Code discovery adapter.
+- `.claude/skills/task-cleanup` is the Claude Code cleanup adapter.
 
-Both adapters are relative symlinks to the canonical package. Copy mode preserves these internal links inside the target repository; symlink mode connects the top-level config directories back to this repository. Run `doctor.sh` after either installation to confirm that both the top-level directories and selected discovery paths resolve.
+The adapters are relative symlinks to their canonical packages. Copy mode preserves these internal links inside the target repository; symlink mode connects the top-level config directories back to this repository. Run `doctor.sh` after either installation to confirm that the top-level directories and selected discovery paths resolve.
+
+For personal discovery without changing each target repository, link the canonical packages into the user-level skill directories:
+
+```text
+~/.codex/skills/risk-to-confidence -> /path/to/agents-configs/.agent-core/skills/risk-to-confidence
+~/.codex/skills/task-cleanup       -> /path/to/agents-configs/.agent-core/skills/task-cleanup
+~/.claude/skills/risk-to-confidence -> /path/to/agents-configs/.agent-core/skills/risk-to-confidence
+~/.claude/skills/task-cleanup       -> /path/to/agents-configs/.agent-core/skills/task-cleanup
+```
+
+This keeps the canonical source outside product repositories while making both skills available across local sessions.
 
 ## Safety Checks
 
@@ -71,7 +84,7 @@ Check an installed target:
 ./scripts/doctor.sh /path/to/project all
 ```
 
-Use `codex` or `claude` for a strict single-tool installation check. Omit the mode to require the common core and R2C discovery path while treating tool-specific directories as optional.
+Use `codex` or `claude` for a strict single-tool installation check. Omit the mode to require the common core and formal skill discovery paths while treating tool-specific directories as optional.
 
 Replace existing copied directories with symlinks:
 

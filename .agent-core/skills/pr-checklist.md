@@ -26,6 +26,7 @@ Use the repo inspection summary, git diff, and validation outputs. Do not re-rea
 10. Risky areas are called out: security, persistence, public contracts, privacy, release, migration, or regulated impact.
 11. Accepted corrections that should help future changes were captured in durable repo memory.
 12. Follow-up work is separated from this PR.
+13. Task worktree and branch cleanup is scheduled for after merge or other durable delivery; open PR or required CI resources are not deleted early.
 
 ## Suggested Report
 

@@ -9,6 +9,7 @@ Use `.agent-core` as the vendor-neutral source of truth.
 3. Separate default-branch policy from current branch evidence and state the intended behavior with confidence.
 4. Load only the task-specific skill(s) from `.agent-core/skills/index.md`.
 5. Validate with commands discovered from the target repo; distinguish generated from executed evidence.
+6. After delivery is preserved, use `task-cleanup` to remove completed task worktrees, directories, and branches; defer anything that fails its safety gates.
 
 ## Do Not
 

@@ -19,6 +19,7 @@ The canonical instructions live in [the R2C skill](../.agent-core/skills/risk-to
 - [Specialist Composition](#specialist-composition)
 - [Context-Isolated Delegation](#context-isolated-delegation)
 - [Conformance And Learning](#conformance-and-learning)
+- [Completion Cleanup](#completion-cleanup)
 - [Invocation](#invocation)
 - [Verdicts](#verdicts)
 - [Installation And Discovery](#installation-and-discovery)
@@ -152,6 +153,16 @@ The Confidence Pack ends with a Learning Check: identify repeated or non-obvious
 
 For Standard or Expanded work, optional harness signals include review/fix rounds, human decisions or interventions, contract deltas, and repeated failure patterns. These diagnose the workflow. Lines changed and pull-request count are not confidence or productivity measures.
 
+## Completion Cleanup
+
+After delivery is preserved, use `task-cleanup` when the task created a dedicated worktree, external task directory, or local or remote task branch.
+
+- R2C may assess cleanup eligibility, but deletion requires an explicit user request or an active policy that specifically authorizes completion cleanup.
+- Remove only task-scoped resources that are clean, preserved, no longer used, and not protected.
+- Keep branches required by an open PR, CI, deployment, monitor, or handoff.
+- Never force-remove a worktree or recursively delete a task directory. `task-cleanup` deletes remote and local branch refs only through expected-OID-conditional operations.
+- Report `CLEANED` or `CLEANUP DEFERRED` separately from the R2C evidence verdict when cleanup applies.
+
 ## Invocation
 
 Full delivery:
@@ -192,12 +203,15 @@ These verdicts describe evidence state. They do not grant permission to commit, 
 
 ## Installation And Discovery
 
-The workflow has one canonical source and thin discovery adapters:
+The formal workflows have canonical sources and thin discovery adapters:
 
 ```text
 .agent-core/skills/risk-to-confidence/       canonical package
+.agent-core/skills/task-cleanup/              canonical package
 .agents/skills/risk-to-confidence            formal Agent Skills adapter
+.agents/skills/task-cleanup                   formal Agent Skills adapter
 .claude/skills/risk-to-confidence             Claude Code adapter
+.claude/skills/task-cleanup                    Claude Code adapter
 ```
 
 Install both tool entrypoints:

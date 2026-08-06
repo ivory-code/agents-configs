@@ -36,6 +36,10 @@ A portable skillset should help an agent understand the current repo quickly, ch
         repository-adapter.md
       agents/
         openai.yaml
+    task-cleanup/
+      SKILL.md
+      agents/
+        openai.yaml
     engineering-excellence-harness.md
     executive-operating-harness.md
     intent-capture.md
@@ -46,11 +50,15 @@ A portable skillset should help an agent understand the current repo quickly, ch
     design-system.md
     testing.md
     pr-checklist.md
-.agents/skills/risk-to-confidence -> ../../.agent-core/skills/risk-to-confidence
+.agents/skills/
+  risk-to-confidence -> ../../.agent-core/skills/risk-to-confidence
+  task-cleanup -> ../../.agent-core/skills/task-cleanup
 .codex/AGENTS.md
 .claude/
   CLAUDE.md
-  skills/risk-to-confidence -> ../../.agent-core/skills/risk-to-confidence
+  skills/
+    risk-to-confidence -> ../../.agent-core/skills/risk-to-confidence
+    task-cleanup -> ../../.agent-core/skills/task-cleanup
 ```
 
 ## 3. Operating Flow
@@ -69,7 +77,7 @@ flowchart TD
     R2 --> R3[Dependency-Aware Build]
     R3 --> R4[Progressive Integration]
     R4 --> R5[Confidence Pack]
-    R5 --> L
+    R5 --> CLEAN
     F --> H[Task skill: code/design/testing/PR]
     E --> I[Decision / plan]
     G --> J[Skill update]
@@ -77,8 +85,11 @@ flowchart TD
     H2 --> K[Validation]
     I --> K
     J --> K
-    K --> L[Concise report]
-    L --> M[Promote reviewed correction]
+    K --> CLEAN{Task resources created?}
+    CLEAN -- Yes --> T[Task cleanup or explicit deferral]
+    CLEAN -- No --> L
+    T --> L[Concise report]
+    L --> M[Promote human-accepted correction]
 ```
 
 ### Risk-to-Confidence Routing Boundary
@@ -180,7 +191,7 @@ user request + commits + diff + reviewed baseline
   -> primary / failure / boundary / state-transition scenarios
   -> generated checks
   -> executed evidence
-  -> reviewed correction
+  -> human-accepted correction
 ```
 
 Use `blueprints/verification-baseline-template.md` only when a repo has repeated, non-obvious verification knowledge. The default branch is the shared baseline; a feature branch proposes changes to it.

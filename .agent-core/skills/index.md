@@ -30,6 +30,7 @@ Use the smallest relevant skill set. Do not load every skill by default.
 | Change intent / tests / risky logic / PR validation | `testing` |
 | AI-generated output review / QA evidence / eval design | `verification-layer`, optionally `taste-calibration` |
 | PR finalize | `pr-checklist` |
+| Completed change-bearing task with a task worktree or branch | `task-cleanup` |
 
 ## Token Budget Rules
 
@@ -41,4 +42,6 @@ Use the smallest relevant skill set. Do not load every skill by default.
 
 ## Completion Rule
 
-Finish with observed intent evidence, generated-versus-executed validation evidence, or a clear reason validation could not run. Promote only human-reviewed corrections into durable repo memory.
+Finish with observed intent evidence, generated-versus-executed validation evidence, or a clear reason validation could not run. Promote only human-accepted corrections into durable repo memory.
+
+When a task created a dedicated worktree, external task directory, or task branch, run `task-cleanup` after delivery is preserved. End with `CLEANED`, `CLEANUP NOT NEEDED`, or `CLEANUP DEFERRED`; never delete dirty, unpreserved, protected, open-PR, or still-monitored resources.

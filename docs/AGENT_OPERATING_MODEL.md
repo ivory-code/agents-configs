@@ -132,7 +132,17 @@ This reduces repeated human effort:
 - more reusable quality judgment
 - more durable repo-local knowledge
 
-## 7. Practical Rule
+## 7. Completion Hygiene
+
+After durable delivery, use `task-cleanup` for every dedicated task worktree, external task directory, and local or remote task branch. Cleanup is part of completion, but preservation comes first: retain dirty state, unpreserved commits, protected branches, open PR resources, and anything still used by CI, deployment, monitoring, or a handoff.
+
+Report one cleanup verdict:
+
+- `CLEANED`: every eligible task resource was removed and absence was verified
+- `CLEANUP NOT NEEDED`: the task created no cleanup resources
+- `CLEANUP DEFERRED`: retained targets, failed safety gates, and the next eligibility event are explicit
+
+## 8. Practical Rule
 
 Do not make agents smarter by loading everything.
 
@@ -145,3 +155,4 @@ Make agents more useful by giving them:
 5. a calibrated quality bar
 6. a clear validation layer
 7. a place to store reviewed, durable lessons
+8. a verified completion cleanup or explicit cleanup deferral

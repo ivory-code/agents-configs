@@ -95,23 +95,36 @@ case "$MODE" in
     ;;
 esac
 
-R2C_SKILL_PATH="$TARGET/.agents/skills/risk-to-confidence/SKILL.md"
-if [[ -f "$R2C_SKILL_PATH" ]]; then
-  echo "[skill]   risk-to-confidence via .agents"
-else
-  echo "[missing] risk-to-confidence discovery path"
-  STATUS=1
-fi
+check_agent_skill() {
+  local skill_name="$1"
+  local skill_path="$TARGET/.agents/skills/$skill_name/SKILL.md"
 
-CLAUDE_R2C_SKILL_PATH="$TARGET/.claude/skills/risk-to-confidence/SKILL.md"
-if [[ -f "$CLAUDE_R2C_SKILL_PATH" ]]; then
-  echo "[skill]   risk-to-confidence via .claude"
-elif [[ "$MODE" == "claude" || "$MODE" == "all" ]]; then
-  echo "[missing] risk-to-confidence Claude discovery path"
-  STATUS=1
-elif [[ "$MODE" == "auto" && ( -e "$TARGET/.claude" || -L "$TARGET/.claude" ) ]]; then
-  echo "[info]    .claude exists without the optional risk-to-confidence adapter"
-fi
+  if [[ -f "$skill_path" ]]; then
+    echo "[skill]   $skill_name via .agents"
+  else
+    echo "[missing] $skill_name discovery path"
+    STATUS=1
+  fi
+}
+
+check_claude_skill() {
+  local skill_name="$1"
+  local skill_path="$TARGET/.claude/skills/$skill_name/SKILL.md"
+
+  if [[ -f "$skill_path" ]]; then
+    echo "[skill]   $skill_name via .claude"
+  elif [[ "$MODE" == "claude" || "$MODE" == "all" ]]; then
+    echo "[missing] $skill_name Claude discovery path"
+    STATUS=1
+  elif [[ "$MODE" == "auto" && ( -e "$TARGET/.claude" || -L "$TARGET/.claude" ) ]]; then
+    echo "[info]    .claude exists without the optional $skill_name adapter"
+  fi
+}
+
+check_agent_skill "risk-to-confidence"
+check_agent_skill "task-cleanup"
+check_claude_skill "risk-to-confidence"
+check_claude_skill "task-cleanup"
 
 echo
 if [[ "$STATUS" -eq 0 ]]; then
